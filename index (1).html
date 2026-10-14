@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CampusMeter | Make Your Money Survive Campus</title>
+<meta name="description" content="CampusMeter helps Nigerian university students budget their allowance in naira: see how long your money lasts, set a daily spending limit, and track expenses. Free, no sign-up.">
+<meta name="theme-color" content="#080B14">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CampusMeter | Make Your Money Survive Campus">
+<meta property="og:description" content="Know how much you can spend, how long your money will last, and what to change before your balance hits zero.">
+<meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23C6FF4D'/%3E%3Cpath d='M7.5 21.5a8.5 8.5 0 1 1 17 0' fill='none' stroke='%23080B14' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M16 21.5l4.6-7' stroke='%23080B14' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='21.5' r='2.2' fill='%23080B14'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap">
+<style>
+/* ===== CampusMeter styles ===== */
+:root{
+  --bg:#080B14; --bg2:#0D1220; --bg3:#121935;
+  --text:#F5F7FA; --muted:#9AA6C0; --muted2:#6F7B99;
+  --lime:#C6FF4D; --purple:#8B5CF6; --cyan:#38D9FF; --pink:#F472B6;
+  --good:#4ADE80; --warn:#FBBF24; --bad:#FF6B6B;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+  --card:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+  --r-lg:24px; --r-md:16px; --r-sm:12px;
+  --font:Inter,"SF Pro Display","Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  --head-h:64px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+   radial-gradient(60% 40% at 90% -5%,rgba(139,92,246,.22),transparent 70%),
+   radial-gradient(50% 35% at -10% 28%,rgba(56,217,255,.10),transparent 70%),
+   radial-gradient(45% 30% at 85% 95%,rgba(198,255,77,.07),transparent 70%),
+   linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg))}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{letter-spacing:-.025em;line-height:1.1}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+img,svg{max-width:100%}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:1rem;top:-60px;background:var(--lime);color:#0A1000;padding:.7rem 1rem;border-radius:10px;font-weight:700;z-index:100}
+.skip:focus{top:.75rem}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+.ic{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{width:min(1120px,100% - 2rem);margin-inline:auto}
+section[id]{scroll-margin-top:calc(var(--head-h) + 8px)}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+.num{font-variant-numeric:tabular-nums}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:50px;padding:0 1.35rem;border-radius:15px;border:1px solid transparent;font-weight:650;font-size:1rem;text-decoration:none;transition:transform .12s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;user-select:none;text-align:center;line-height:1.2}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--lime);color:#0A1200;box-shadow:0 10px 28px -10px rgba(198,255,77,.55),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-ghost{background:rgba(255,255,255,.05);border-color:var(--line2);color:var(--text)}
+.btn-danger{background:rgba(255,107,107,.14);border-color:rgba(255,107,107,.4);color:#FFB3B3}
+.btn-solid-danger{background:var(--bad);color:#2A0505}
+.btn-sm{min-height:42px;padding:0 1rem;font-size:.92rem;border-radius:12px}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.55;pointer-events:none}
+@media (hover:hover){
+  .btn-primary:hover{box-shadow:0 14px 34px -10px rgba(198,255,77,.7),inset 0 1px 0 rgba(255,255,255,.5);transform:translateY(-1px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.28)}
+}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:transparent;border:1px solid transparent;color:var(--muted)}
+.icon-btn:active{background:rgba(255,255,255,.08);transform:scale(.94)}
+@media (hover:hover){.icon-btn:hover{background:rgba(255,255,255,.08);color:var(--text)}}
+
+/* ===== Header ===== */
+.site-header{position:sticky;top:0;z-index:50;height:var(--head-h);display:flex;align-items:center;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+.site-header.scrolled{background:rgba(8,11,20,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:.75rem;width:min(1120px,100% - 2rem);margin-inline:auto}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:800;letter-spacing:-.02em;font-size:1.12rem}
+.brand svg{width:34px;height:34px}
+.brand span b{color:var(--lime);font-weight:800}
+.dnav{display:none;gap:.25rem}
+.dnav a{padding:.55rem .9rem;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:550;font-size:.95rem;transition:color .2s,background .2s}
+.dnav a[aria-current="true"],.dnav a:hover{color:var(--text)}
+.dnav a[aria-current="true"]{background:rgba(255,255,255,.07)}
+.head-actions{display:flex;align-items:center;gap:.4rem}
+.head-actions .btn{min-height:42px;padding:0 .95rem;font-size:.9rem}
+.mnav{position:fixed;left:0;right:0;top:var(--head-h);z-index:49;background:rgba(10,14,26,.97);border-bottom:1px solid var(--line);padding:.5rem 1rem 1rem;display:grid;gap:.15rem;max-height:calc(100vh - var(--head-h));overflow:auto}
+.mnav a{display:flex;align-items:center;gap:.8rem;padding:.9rem .75rem;border-radius:12px;text-decoration:none;font-weight:600}
+.mnav a:active{background:rgba(255,255,255,.07)}
+.mnav a .ic{color:var(--lime)}
+.mnav hr{border:0;border-top:1px solid var(--line);margin:.4rem 0;width:100%}
+@media (min-width:900px){
+  .dnav{display:flex}
+  .menu-btn,.mnav{display:none!important}
+  .head-actions .btn{min-height:46px;padding:0 1.15rem;font-size:.95rem}
+}
+@media (max-width:359px){.head-actions .btn{padding:0 .7rem;font-size:.82rem}.brand{font-size:1rem}}
+
+/* ===== Hero ===== */
+.hero{position:relative;padding:1.75rem 0 3.5rem;overflow-x:clip}
+.hero-grid{display:grid;gap:2.75rem;align-items:center}
+.hero h1{font-size:clamp(2.45rem,10.5vw,4.9rem);font-weight:800;letter-spacing:-.045em;line-height:.98;text-wrap:balance}
+.hero .lead{margin-top:1.25rem;font-size:clamp(1.02rem,3.8vw,1.22rem);color:var(--muted);max-width:34rem}
+.tag{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .85rem;border:1px solid var(--line2);border-radius:99px;font-size:.84rem;color:var(--muted);background:rgba(255,255,255,.04);margin-bottom:1.25rem}
+.tag i{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(198,255,77,.18)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.cta-row .btn{flex:1 1 200px}
+.trust{display:flex;align-items:center;gap:.6rem;margin-top:1.5rem;color:var(--muted);font-size:.92rem}
+.trust .ic{color:var(--lime)}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.pills span{font-size:.8rem;color:var(--muted);padding:.3rem .7rem;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+@media (min-width:900px){
+  .hero{padding:3.5rem 0 5.5rem}
+  .hero-grid{grid-template-columns:1.1fr .9fr;gap:3rem}
+  .cta-row .btn{flex:0 0 auto}
+}
+
+/* Hero mockup: the one memorable moment */
+.mock{position:relative;width:min(100%,370px);margin-inline:auto;padding:1.4rem 0 3rem}
+.mock-back{position:absolute;left:7%;top:.2rem;width:86%;height:90%;border-radius:30px;background:linear-gradient(155deg,rgba(139,92,246,.7),rgba(56,217,255,.22) 70%);transform:rotate(-6deg);opacity:.75;border:1px solid rgba(255,255,255,.12)}
+.mock-phone{position:relative;border-radius:30px;padding:16px;background:linear-gradient(180deg,#141C3D,#0B1124);border:1px solid var(--line2);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 6px rgba(255,255,255,.03)}
+.mock-top{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:.9rem;gap:.5rem}
+.pill{display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .6rem;border-radius:99px;font-size:.74rem;font-weight:700}
+.pill.good{background:rgba(74,222,128,.14);color:var(--good)}
+.pill.warn{background:rgba(251,191,36,.14);color:var(--warn)}
+.pill.bad{background:rgba(255,107,107,.14);color:var(--bad)}
+.mock-main{display:grid;grid-template-columns:104px 1fr;gap:.9rem;align-items:center}
+.ring{position:relative;width:104px;height:104px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:9}
+.ring .bar{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1)}
+.ring-c{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring-c b{font-size:1.45rem;letter-spacing:-.03em;line-height:1}
+.ring-c small{font-size:.66rem;color:var(--muted);margin-top:.2rem}
+.mock-nums{display:grid;gap:.55rem}
+.mock-nums div{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:1px solid var(--line);padding-bottom:.45rem}
+.mock-nums div:last-child{border:0;padding:0}
+.mock-nums small{color:var(--muted);font-size:.74rem}
+.mock-nums b{font-size:.98rem;letter-spacing:-.02em}
+.mock-nums .lft b{color:var(--lime);font-size:1.15rem}
+.mock-limit{margin-top:.95rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.7rem .85rem;border-radius:16px;background:linear-gradient(100deg,rgba(198,255,77,.2),rgba(198,255,77,.05));border:1px solid rgba(198,255,77,.3)}
+.mock-limit small{color:var(--muted);font-size:.74rem;display:block}
+.mock-limit b{font-size:1.2rem;letter-spacing:-.03em;color:var(--lime)}
+.mock-limit .ic{color:var(--lime);width:1.5em;height:1.5em}
+.mock-chart{margin-top:.9rem;display:flex;align-items:flex-end;justify-content:space-between;gap:6px;height:64px;position:relative;padding-top:6px}
+.mock-chart::after{content:"";position:absolute;left:0;right:0;top:calc(6px + 22%);border-top:1px dashed rgba(255,255,255,.22)}
+.mock-chart i{flex:1;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,var(--cyan),rgba(56,217,255,.25));height:var(--h);transform-origin:bottom;transform:scaleY(.04);transition:transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * 70ms + .4s)}
+.mock-chart i.hi{background:linear-gradient(180deg,var(--warn),rgba(251,191,36,.25))}
+.mock.in .mock-chart i{transform:scaleY(1)}
+.mock-days{display:flex;justify-content:space-between;gap:6px;font-size:.62rem;color:var(--muted2);margin-top:.3rem}
+.mock-days span{flex:1;text-align:center}
+.mock-cats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.9rem}
+.mock-cat{display:flex;align-items:center;gap:.55rem;padding:.55rem .6rem;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.mock-cat .ico{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);font-size:.95rem}
+.mock-cat small{display:block;font-size:.66rem;color:var(--muted);line-height:1.1}
+.mock-cat b{font-size:.84rem;letter-spacing:-.02em}
+.mock-float{position:absolute;right:-2px;bottom:0;width:66%;padding:.75rem .85rem;border-radius:18px;background:rgba(20,28,60,.94);border:1px solid var(--line2);box-shadow:0 24px 50px -16px rgba(0,0,0,.8);animation:bob 6s ease-in-out infinite}
+.mock-float small{color:var(--muted);font-size:.7rem}
+.mock-float p{font-size:.88rem;font-weight:650;letter-spacing:-.01em;margin:.1rem 0 .5rem}
+.meter{height:7px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.meter i{display:block;height:100%;width:var(--w,0%);border-radius:9px;background:linear-gradient(90deg,var(--lime),var(--cyan));transition:width .9s ease .9s}
+.mock:not(.in) .meter i{width:0}
+.mock-note{text-align:center;font-size:.75rem;color:var(--muted2);margin-top:1rem}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media (max-width:359px){.mock-main{grid-template-columns:90px 1fr}.ring{width:90px;height:90px}.mock-float{width:74%}}
+
+/* ===== Sections ===== */
+.section{padding:3.5rem 0}
+.sec-head{margin-bottom:1.75rem;max-width:40rem}
+.sec-head h2{font-size:clamp(1.8rem,6.5vw,2.8rem);font-weight:800;letter-spacing:-.035em}
+.sec-head p{margin-top:.75rem;color:var(--muted);font-size:1.02rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.25rem}
+@media (min-width:640px){.card{padding:1.6rem}}
+
+/* How it works: a real sequence */
+.steps{display:grid;gap:.9rem;counter-reset:s}
+.step{display:grid;grid-template-columns:44px 1fr;gap:1rem;align-items:start;padding:1.15rem;border-radius:var(--r-md);border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.step::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:800;color:#0A1200;background:var(--lime)}
+.step h3{font-size:1.1rem;letter-spacing:-.02em;margin-bottom:.3rem}
+.step p{color:var(--muted);font-size:.95rem}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}.step{grid-template-columns:1fr;gap:.9rem}}
+
+/* ===== Tool workspace ===== */
+.tool-shell{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:28px;padding:.9rem}
+@media (min-width:640px){.tool-shell{padding:1.4rem}}
+.tabs{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;padding:.25rem;background:rgba(0,0,0,.28);border-radius:18px;border:1px solid var(--line);-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:0 1rem;border-radius:14px;background:transparent;border:0;color:var(--muted);font-weight:650;font-size:.93rem;white-space:nowrap;transition:background .2s,color .2s}
+.tab[aria-selected="true"]{background:rgba(198,255,77,.14);color:var(--lime);box-shadow:inset 0 0 0 1px rgba(198,255,77,.35)}
+.tab:active{transform:scale(.97)}
+.panel{margin-top:1.1rem}
+.panel>.intro{margin-bottom:1.1rem}
+.panel>.intro h3{font-size:1.45rem;letter-spacing:-.03em}
+.panel>.intro p{color:var(--muted);margin-top:.35rem;font-size:.97rem;max-width:42rem}
+
+/* Forms */
+.form-grid{display:grid;gap:.9rem}
+@media (min-width:760px){.form-grid{grid-template-columns:1fr 1fr}.span2{grid-column:1/-1}}
+fieldset{border:1px solid var(--line);border-radius:20px;padding:1rem;margin:0;min-width:0;background:rgba(255,255,255,.02)}
+legend{padding:0 .5rem;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem;font-size:1rem}
+legend .ic{color:var(--lime)}
+.fgroup{display:grid;gap:.85rem;margin-top:.5rem}
+.field label,.field .lbl{display:block;font-size:.88rem;font-weight:600;margin-bottom:.4rem;color:#D3DAEA}
+.field .opt{color:var(--muted2);font-weight:500}
+.inp{position:relative}
+.inp input,.inp select,.field>input,.field>select,.field>textarea{width:100%;min-height:52px;padding:0 1rem;border-radius:14px;border:1px solid var(--line2);background:rgba(8,11,20,.7);font-size:1rem;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none;color-scheme:dark}
+.inp.money input{padding-left:2.15rem}
+.inp.money::before{content:"₦";position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--lime);font-weight:700;pointer-events:none}
+.inp input:focus,.field>input:focus,.field>select:focus,.inp select:focus{outline:0;border-color:var(--lime);box-shadow:0 0 0 4px rgba(198,255,77,.16)}
+.inp input::placeholder,.field>input::placeholder{color:#59627D}
+.inp input[aria-invalid="true"],.field>input[aria-invalid="true"],.field>select[aria-invalid="true"]{border-color:var(--bad);box-shadow:0 0 0 4px rgba(255,107,107,.13)}
+.inp.sel::after{content:"";position:absolute;right:1.1rem;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.inp select{padding-right:2.5rem}
+.hint{font-size:.8rem;color:var(--muted2);margin-top:.35rem}
+.err{font-size:.82rem;color:#FF9A9A;margin-top:.4rem;display:flex;gap:.4rem;align-items:flex-start}
+.err::before{content:"!";flex:none;width:16px;height:16px;border-radius:50%;background:var(--bad);color:#2A0505;font-size:.7rem;font-weight:800;display:grid;place-items:center;margin-top:2px}
+.radios{display:flex;flex-wrap:wrap;gap:.5rem}
+.radios label{margin:0;position:relative}
+.radios input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.radios span{display:flex;align-items:center;min-height:46px;padding:0 1rem;border-radius:14px;border:1px solid var(--line2);background:rgba(8,11,20,.7);font-weight:600;font-size:.92rem;color:var(--muted);transition:all .2s}
+.radios input:checked+span{border-color:var(--lime);color:var(--lime);background:rgba(198,255,77,.1)}
+.radios input:focus-visible+span{outline:2px solid var(--cyan);outline-offset:2px}
+.form-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.1rem}
+.form-actions .btn-primary{flex:2 1 220px}
+.form-actions .btn-ghost{flex:1 1 150px}
+.note{font-size:.82rem;color:var(--muted2);margin-top:.9rem}
+.form-error{margin-top:.9rem;padding:.8rem 1rem;border-radius:14px;border:1px solid rgba(255,107,107,.4);background:rgba(255,107,107,.1);color:#FFB3B3;font-size:.92rem}
+input[type=range]{width:100%;height:36px;background:transparent;appearance:none;-webkit-appearance:none;padding:0;min-height:0;border:0}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--lime) var(--fill,15%),rgba(255,255,255,.12) var(--fill,15%))}
+input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:rgba(255,255,255,.12)}
+input[type=range]::-moz-range-progress{height:8px;border-radius:8px;background:var(--lime)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid var(--lime);margin-top:-10px;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--lime)}
+.range-top{display:flex;justify-content:space-between;align-items:baseline}
+.range-top output{font-weight:800;color:var(--lime);font-size:1.1rem}
+
+/* Results */
+.results{margin-top:1.4rem;display:grid;gap:1rem}
+.empty{border:1px dashed var(--line2);border-radius:20px;padding:1.6rem 1.25rem;text-align:center;color:var(--muted)}
+.empty .ic{width:2rem;height:2rem;color:var(--muted2);margin-bottom:.6rem}
+.empty h4{color:var(--text);font-size:1.05rem;margin-bottom:.3rem;letter-spacing:-.01em}
+.empty .btn{margin-top:1rem}
+.res-head{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:baseline;justify-content:space-between}
+.res-head h3{font-size:1.3rem;letter-spacing:-.03em}
+.status{display:flex;gap:.9rem;align-items:flex-start;padding:1rem 1.1rem;border-radius:18px;border:1px solid;animation:pop .4s ease}
+.status .ic{width:1.6rem;height:1.6rem;margin-top:.1rem}
+.status b{display:block;font-size:1.05rem;letter-spacing:-.01em}
+.status p{font-size:.92rem;margin-top:.15rem;opacity:.9}
+.status.good{background:rgba(74,222,128,.09);border-color:rgba(74,222,128,.38);color:#9DF2BC}
+.status.warn{background:rgba(251,191,36,.09);border-color:rgba(251,191,36,.38);color:#FCD679}
+.status.bad{background:rgba(255,107,107,.1);border-color:rgba(255,107,107,.42);color:#FFADAD}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media (min-width:860px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{padding:1rem;border-radius:20px;border:1px solid var(--line);background:var(--card);position:relative;overflow:hidden;min-width:0}
+.stat .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,#C6FF4D) 16%,transparent);color:var(--c,var(--lime));margin-bottom:.75rem}
+.stat small{display:block;font-size:.8rem;color:var(--muted);font-weight:550}
+.stat .val{display:block;font-size:clamp(1.3rem,6vw,1.75rem);font-weight:800;letter-spacing:-.04em;line-height:1.15;margin-top:.15rem;overflow-wrap:anywhere}
+.stat .sub{display:block;font-size:.76rem;color:var(--muted2);margin-top:.3rem}
+.stat.hero-stat{border-color:rgba(198,255,77,.35);background:linear-gradient(160deg,rgba(198,255,77,.14),rgba(198,255,77,.02))}
+.stat.hero-stat .val{color:var(--lime)}
+.stat.neg .val{color:var(--bad)}
+.dash-grid{display:grid;gap:1rem}
+@media (min-width:860px){.dash-grid{grid-template-columns:.8fr 1.2fr}}
+.ring-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9rem}
+.ring.big{width:min(200px,60vw);height:min(200px,60vw)}
+.ring.big .track,.ring.big .bar{stroke-width:11}
+.ring.big .ring-c b{font-size:2.2rem}
+.ring.big .ring-c small{font-size:.78rem}
+.card h4{font-size:1.05rem;letter-spacing:-.015em;margin-bottom:.8rem}
+.stack{display:flex;height:16px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.07);gap:2px}
+.stack i{display:block;width:0;background:var(--c);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.legend{display:grid;gap:.1rem;margin-top:1rem}
+.lrow{display:grid;grid-template-columns:12px 1fr auto auto;gap:.7rem;align-items:center;padding:.55rem 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.lrow:last-child{border:0}
+.lrow i{width:12px;height:12px;border-radius:4px;background:var(--c)}
+.lrow .p{color:var(--muted2);font-size:.82rem;min-width:2.8rem;text-align:right}
+.lrow b{letter-spacing:-.02em}
+.plan-list{list-style:none;margin:0;padding:0;display:grid;gap:.65rem}
+.plan-list li{display:grid;grid-template-columns:34px 1fr;gap:.8rem;padding:.9rem;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid var(--line);font-size:.96rem}
+.plan-list .pi{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,#38D9FF) 16%,transparent);color:var(--c,var(--cyan))}
+.plan-list b{color:#fff}
+details.how{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}
+details.how summary{list-style:none;padding:1rem 1.1rem;font-weight:650;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary::after{content:"+";font-size:1.4rem;color:var(--lime);transition:transform .2s}
+details.how[open] summary::after{transform:rotate(45deg)}
+details.how .body{padding:0 1.1rem 1.1rem;display:grid;gap:.6rem;color:var(--muted);font-size:.94rem}
+details.how .body b{color:var(--text)}
+.disclaimer{font-size:.8rem;color:var(--muted2);text-align:center}
+.res-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+.res-actions .btn{flex:1 1 200px}
+
+/* Survival / Tracker */
+.two-col{display:grid;gap:1rem}
+@media (min-width:900px){.two-col{grid-template-columns:.9fr 1.1fr;align-items:start}}
+.bars{display:grid;gap:.85rem}
+.brow .top{display:flex;justify-content:space-between;gap:.6rem;font-size:.92rem;margin-bottom:.35rem;align-items:center}
+.brow .top span{display:flex;align-items:center;gap:.5rem;min-width:0}
+.brow .top span .ic{color:var(--c)}
+.brow .bg{height:9px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
+.brow .bg i{display:block;height:100%;width:0;border-radius:9px;background:var(--c);transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.brow .meta{font-size:.78rem;color:var(--muted2);margin-top:.3rem}
+.week-list{display:grid;gap:.45rem}
+.week-list div{display:flex;justify-content:space-between;gap:.8rem;padding:.65rem .85rem;border-radius:12px;background:rgba(255,255,255,.035);font-size:.92rem}
+.week-list div span:first-child{color:var(--muted)}
+.logrow{display:grid;grid-template-columns:auto 1fr auto auto;gap:.6rem;align-items:center;padding:.6rem .2rem;border-bottom:1px solid var(--line)}
+.logrow:last-child{border:0}
+.dchip{display:inline-flex;align-items:center;justify-content:center;min-width:3.2rem;padding:.25rem .6rem;border-radius:99px;font-size:.78rem;font-weight:700;background:rgba(255,255,255,.07)}
+.dchip.ok{background:rgba(74,222,128,.14);color:var(--good)}
+.dchip.over{background:rgba(255,107,107,.14);color:var(--bad)}
+.inline-form{display:grid;grid-template-columns:1fr;gap:.8rem}
+@media (min-width:520px){.inline-form.cols{grid-template-columns:1fr 1fr}}
+.chips{display:flex;gap:.45rem;overflow-x:auto;scrollbar-width:none;padding-bottom:.2rem;margin-bottom:.8rem}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 .95rem;border-radius:99px;border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--muted);font-weight:600;font-size:.88rem}
+.chip[aria-pressed="true"]{background:rgba(198,255,77,.14);border-color:rgba(198,255,77,.5);color:var(--lime)}
+.exp{display:grid;grid-template-columns:42px 1fr auto;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.exp:last-child{border:0}
+.exp .ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
+.exp .t{min-width:0}
+.exp .t b{display:block;font-size:.97rem;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp .t small{color:var(--muted2);font-size:.8rem}
+.exp .r{text-align:right}
+.exp .r b{display:block;letter-spacing:-.02em}
+.exp .acts{display:flex;justify-content:flex-end;margin-right:-.6rem}
+.exp .acts .icon-btn{width:40px;height:36px}
+.total-line{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:1rem}
+.total-line b{font-size:1.8rem;letter-spacing:-.04em}
+.total-line span{color:var(--muted);font-size:.9rem}
+.compare-total{padding:.9rem 1rem;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);margin-bottom:1rem}
+.compare-total .meter{height:10px;margin-top:.6rem}
+.compare-total .meter i{width:var(--w,0%);transition:width .7s ease;background:linear-gradient(90deg,var(--lime),var(--cyan))}
+.compare-total.warn .meter i{background:var(--warn)}
+.compare-total.bad .meter i{background:var(--bad)}
+
+/* Share card */
+.share-wrap{display:grid;gap:1.2rem;justify-items:center}
+@media (min-width:900px){.share-wrap{grid-template-columns:1fr 1fr;justify-items:stretch;align-items:start}}
+.sc{position:relative;width:min(100%,380px);margin-inline:auto;aspect-ratio:4/5;border-radius:28px;padding:1.5rem 1.4rem;background:radial-gradient(90% 55% at 100% 0%,rgba(198,255,77,.2),transparent 70%),radial-gradient(80% 50% at 0% 100%,rgba(139,92,246,.4),transparent 70%),#080B14;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 70px -30px rgba(0,0,0,.9);display:flex;flex-direction:column;overflow:hidden}
+.sc-brand{display:flex;align-items:center;gap:.55rem;font-weight:800;letter-spacing:.12em;font-size:.82rem}
+.sc-brand svg{width:30px;height:30px}
+.sc h4{font-size:1.65rem;letter-spacing:-.035em;margin:1.1rem 0 .15rem;line-height:1.05}
+.sc .where{font-size:.82rem;color:var(--muted)}
+.sc-big{margin:1.1rem 0 .9rem;padding:.9rem 1rem;border-radius:18px;background:rgba(198,255,77,.1);border:1px solid rgba(198,255,77,.3)}
+.sc-big small{display:block;color:var(--muted);font-size:.78rem}
+.sc-big b{font-size:2.5rem;letter-spacing:-.05em;color:var(--lime);line-height:1.05}
+.sc-big span{color:var(--muted);font-size:.85rem;margin-left:.3rem}
+.sc-rows{display:grid;gap:0}
+.sc-rows div{display:flex;justify-content:space-between;gap:.8rem;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.9rem}
+.sc-rows div span{color:var(--muted)}
+.sc-rows div b{letter-spacing:-.02em}
+.sc-quote{margin-top:auto;font-style:italic;color:#D6DEF0;font-size:.95rem}
+.share-side{display:grid;gap:.9rem;align-content:start;width:100%}
+.toggle{display:flex;align-items:center;gap:.8rem;min-height:48px;cursor:pointer}
+.toggle input{width:22px;height:22px;accent-color:var(--lime);flex:none}
+.btn-stack{display:grid;gap:.6rem}
+
+/* Features */
+.feat-grid{display:grid;gap:.9rem}
+@media (min-width:700px){.feat-grid{grid-template-columns:repeat(6,1fr)}.feat:nth-child(1){grid-column:span 4}.feat:nth-child(2){grid-column:span 2}.feat:nth-child(n+3){grid-column:span 2}}
+.feat{display:block;text-align:left;width:100%;padding:1.3rem;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);text-decoration:none;transition:transform .15s,border-color .2s,background .2s;position:relative;overflow:hidden}
+.feat:active{transform:scale(.985)}
+@media (hover:hover){.feat:hover{border-color:var(--line2);transform:translateY(-2px)}}
+.feat .ico{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c);margin-bottom:1rem;font-size:1.15rem}
+.feat h3{font-size:1.2rem;letter-spacing:-.025em;margin-bottom:.4rem}
+.feat p{color:var(--muted);font-size:.95rem}
+.feat.big{background:linear-gradient(150deg,rgba(139,92,246,.22),rgba(255,255,255,.02) 60%)}
+.feat.big h3{font-size:1.5rem}
+
+/* Tips */
+.tips{display:grid;gap:.8rem}
+@media (min-width:700px){.tips{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.tips{grid-template-columns:repeat(3,1fr)}}
+.tip{display:flex;flex-direction:column;gap:.5rem;text-align:left;padding:1.2rem;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);width:100%;transition:transform .15s,border-color .2s;min-height:150px}
+.tip:active{transform:scale(.985)}
+@media (hover:hover){.tip:hover{border-color:rgba(198,255,77,.4)}}
+.tip .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--c)}
+.tip h3{font-size:1.1rem;letter-spacing:-.02em;margin-top:.3rem}
+.tip p{color:var(--muted);font-size:.9rem;flex:1}
+.tip .read{font-size:.82rem;font-weight:700;color:var(--lime)}
+
+/* About + footer */
+.about-grid{display:grid;gap:1.2rem}
+@media (min-width:860px){.about-grid{grid-template-columns:1.2fr .8fr;align-items:start}}
+.about p+p{margin-top:.9rem}
+.about p{color:var(--muted)}
+.facts{display:grid;gap:.7rem;list-style:none;padding:0;margin:0}
+.facts li{display:grid;grid-template-columns:28px 1fr;gap:.7rem;font-size:.95rem;color:var(--muted)}
+.facts li .ic{color:var(--lime);margin-top:.15rem}
+.facts b{color:var(--text)}
+footer{border-top:1px solid var(--line);padding:2.5rem 0 calc(2.5rem + env(safe-area-inset-bottom));margin-top:2rem;background:rgba(0,0,0,.2)}
+.foot-grid{display:grid;gap:1.5rem}
+@media (min-width:760px){.foot-grid{grid-template-columns:1.2fr 1fr;align-items:start}}
+.foot-links{display:flex;flex-wrap:wrap;gap:.3rem .4rem;list-style:none;margin:0;padding:0}
+.foot-links a,.foot-links button{display:inline-flex;align-items:center;min-height:44px;padding:0 .8rem;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:550;background:none;border:0;font-size:.95rem}
+.foot-links a:active,.foot-links button:active{background:rgba(255,255,255,.07)}
+@media (hover:hover){.foot-links a:hover,.foot-links button:hover{color:var(--text);background:rgba(255,255,255,.06)}}
+.foot-copy{margin-top:1.8rem;font-size:.82rem;color:var(--muted2)}
+
+/* Dialogs */
+dialog{border:1px solid var(--line2);background:#0E1428;color:var(--text);border-radius:24px;padding:0;width:min(560px,100% - 1.5rem);max-height:88vh;box-shadow:0 40px 100px -20px rgba(0,0,0,.9)}
+dialog::backdrop{background:rgba(3,5,10,.72)}
+dialog[open]{animation:pop .22s ease;display:flex;flex-direction:column}
+.dlg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.25rem 1.25rem .5rem}
+.dlg-head h3{font-size:1.35rem;letter-spacing:-.03em;line-height:1.15}
+.dlg-body{padding:.25rem 1.25rem 1.25rem;overflow:auto;color:#C5CEE3;font-size:1rem;display:grid;gap:.9rem;align-content:start;-webkit-overflow-scrolling:touch}
+.dlg-body h4{color:var(--text);font-size:1.05rem;letter-spacing:-.01em;margin-top:.4rem}
+.dlg-body ul{margin:0;padding-left:1.2rem;display:grid;gap:.4rem}
+.dlg-body a{color:var(--cyan)}
+.dlg-foot{display:flex;gap:.7rem;padding:0 1.25rem 1.25rem;flex-wrap:wrap}
+.dlg-foot .btn{flex:1 1 140px}
+.art-meta{color:var(--muted2);font-size:.85rem}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(1.25rem + env(safe-area-inset-bottom));transform:translate(-50%,30px);opacity:0;pointer-events:none;background:#E9EEF8;color:#0A1020;padding:.8rem 1.1rem;border-radius:14px;font-weight:600;font-size:.92rem;z-index:200;max-width:min(92vw,420px);text-align:center;transition:all .25s ease;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+}
+
+/* Header CTA label swap on small screens */
+.head-actions .short{display:none}
+@media (max-width:479px){.head-actions .long{display:none}.head-actions .short{display:inline}}
+
+/* Key-value rows and misc */
+#results-body{display:grid;gap:1rem}
+.kv{display:grid}
+.kv div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.kv div:last-child{border:0}
+.kv span{color:var(--muted)}
+.kv b{text-align:right;letter-spacing:-.01em}
+.logrow{grid-template-columns:auto 1fr auto}
+#results,#sc-slot,#surv-out,#exp-form,#tool{scroll-margin-top:calc(var(--head-h) + 12px)}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the budget tools</a>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gGood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C6FF4D"/><stop offset="1" stop-color="#38D9FF"/></linearGradient>
+    <linearGradient id="gWarn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBBF24"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+    <linearGradient id="gBad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A8A"/><stop offset="1" stop-color="#FF4D6D"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 32 32">
+    <rect width="32" height="32" rx="9" fill="#C6FF4D"/>
+    <path d="M7.5 21.5a8.5 8.5 0 1 1 17 0" fill="none" stroke="#080B14" stroke-width="3" stroke-linecap="round"/>
+    <path d="M16 21.5l4.6-7" stroke="#080B14" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="16" cy="21.5" r="2.2" fill="#080B14"/>
+  </symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h12v3"/><path d="M3 7v10a2 2 0 0 0 2 2h14a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H5a2 2 0 0 1-2-1z"/><circle cx="16.5" cy="13.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="9" cy="9" r="5.5"/><path d="M14.8 8.6A5.5 5.5 0 1 1 9.4 14.8"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-6"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10"/><path d="M17 3c-2 2-3 4.5-3 7h3v11"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16M8 20v-3M16 20v-3"/><circle cx="8" cy="14" r=".7" fill="currentColor"/><circle cx="16" cy="14" r=".7" fill="currentColor"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.7 16a5 5 0 0 1 6.6 0"/><circle cx="12" cy="19" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="18" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 20a2 2 0 0 0 2 1h13v-3"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+  <symbol id="i-game" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="5"/><path d="M8 11v4M6 13h4"/><circle cx="16" cy="12.2" r=".8" fill="currentColor"/><circle cx="18" cy="14" r=".8" fill="currentColor"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".8" fill="currentColor"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+  <symbol id="i-life" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M8 7h8M8 12h1M12 12h1M16 12h0M8 16h1M12 16h1M16 16h0"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+</svg>
+
+<!-- Header -->
+<header class="site-header" id="top">
+  <div class="head-in">
+    <a class="brand" href="#home" data-go="home" aria-label="CampusMeter home">
+      <svg aria-hidden="true"><use href="#logo"/></svg>
+      <span>Campus<b>Meter</b></span>
+    </a>
+    <nav class="dnav" aria-label="Main">
+      <a href="#home" data-go="home" data-sec="home">Home</a>
+      <a href="#calculator" data-go="calculator" data-sec="tool">Budget Calculator</a>
+      <a href="#features" data-go="features" data-sec="features">Features</a>
+      <a href="#about" data-go="about" data-sec="about">About</a>
+    </nav>
+    <div class="head-actions">
+      <a class="btn btn-primary" href="#calculator" data-go="calculator"><span class="long">Calculate My Budget</span><span class="short">Calculate</span></a>
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Mobile" hidden>
+  <a href="#home" data-go="home"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Home</a>
+  <a href="#calculator" data-go="calculator"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>Budget Calculator</a>
+  <a href="#survival" data-go="survival"><svg class="ic" aria-hidden="true"><use href="#i-life"/></svg>Survival Mode</a>
+  <a href="#tracker" data-go="tracker"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Expense Tracker</a>
+  <a href="#share" data-go="share"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>Share Card</a>
+  <hr>
+  <a href="#tips" data-go="tips"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg>Campus Money Tips</a>
+  <a href="#features" data-go="features"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg>Features</a>
+  <a href="#about" data-go="about"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>About</a>
+</nav>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="tag"><i></i>Free budgeting for Nigerian students</p>
+        <h1>Your Allowance Has a Plan Now.</h1>
+        <p class="lead">Know how much you can spend, how long your money will last, and what to change before your balance hits zero.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#calculator" data-go="calculator">Plan My Money</a>
+          <a class="btn btn-ghost" href="#how" data-go="how">See How It Works</a>
+        </div>
+        <p class="trust"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Built for real student life.</p>
+        <div class="pills"><span>Free to use</span><span>No sign-up</span><span>Stays on your phone</span></div>
+      </div>
+
+      <div>
+        <div class="mock" id="mock" role="img" aria-label="Example dashboard: a 30,000 naira allowance, 22,500 naira of planned expenses, 7,500 naira left and a daily limit of 900 naira.">
+          <div class="mock-back"></div>
+          <div class="mock-phone" aria-hidden="true">
+            <div class="mock-top"><span>Example plan · 30 days</span><span class="pill good">On track</span></div>
+            <div class="mock-main">
+              <div class="ring">
+                <svg viewBox="0 0 104 104"><circle class="track" cx="52" cy="52" r="44"/><circle class="bar" id="mock-ring" cx="52" cy="52" r="44" stroke="url(#gGood)" stroke-dasharray="276.46" stroke-dashoffset="276.46"/></svg>
+                <div class="ring-c"><b>75%</b><small>planned</small></div>
+              </div>
+              <div class="mock-nums">
+                <div><small>Allowance</small><b>₦30,000</b></div>
+                <div><small>Expenses</small><b>₦22,500</b></div>
+                <div class="lft"><small>Remaining</small><b id="mock-left" data-to="7500">₦7,500</b></div>
+              </div>
+            </div>
+            <div class="mock-limit">
+              <div><small>Daily spending limit</small><b>₦900<span style="font-size:.75rem;color:var(--muted);font-weight:600"> / day</span></b></div>
+              <svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>
+            </div>
+            <div class="mock-chart">
+              <i style="--h:62%;--i:0"></i><i style="--h:80%;--i:1"></i><i style="--h:44%;--i:2"></i><i style="--h:70%;--i:3"></i><i class="hi" style="--h:96%;--i:4"></i><i style="--h:58%;--i:5"></i><i style="--h:48%;--i:6"></i>
+            </div>
+            <div class="mock-days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+            <div class="mock-cats">
+              <div class="mock-cat" style="--c:#C6FF4D"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-food"/></svg></span><span><small>Food</small><b>₦13,500</b></span></div>
+              <div class="mock-cat" style="--c:#38D9FF"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-bus"/></svg></span><span><small>Transport</small><b>₦4,500</b></span></div>
+              <div class="mock-cat" style="--c:#8B5CF6"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-wifi"/></svg></span><span><small>Data</small><b>₦2,000</b></span></div>
+              <div class="mock-cat" style="--c:#F472B6"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg></span><span><small>Other</small><b>₦2,500</b></span></div>
+            </div>
+          </div>
+          <div class="mock-float" aria-hidden="true">
+            <small>Today</small>
+            <p>Spend up to ₦900</p>
+            <div class="meter"><i style="--w:40%"></i></div>
+          </div>
+          <p class="mock-note">Example numbers, not student averages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Three steps from "I'm broke" to "I'm planning."</h2>
+        <p>No account. No bank details. Just your allowance and your habits.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div><h3>Enter your money and costs</h3><p>Your allowance, how many days it must last, and what you spend on food, transport, data and more.</p></div></div>
+        <div class="step"><div><h3>See your limit and your plan</h3><p>Get a daily spending limit, your expected balance, and clear suggestions based on your own numbers.</p></div></div>
+        <div class="step"><div><h3>Track it and adjust</h3><p>Log what you actually spend. Compare it with your plan and fix problems while there is still money left.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="section" id="tool" style="padding-top:1.5rem">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Your money workspace</h2>
+        <p>Everything saves on this device automatically, so you can close the page and come back.</p>
+      </div>
+      <div class="tool-shell">
+        <div class="tabs" role="tablist" aria-label="Budget tools" id="tabs">
+          <button class="tab" role="tab" id="tab-calculator" aria-controls="panel-calculator" aria-selected="true" data-tab="calculator"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>Calculator</button>
+          <button class="tab" role="tab" id="tab-survival" aria-controls="panel-survival" aria-selected="false" tabindex="-1" data-tab="survival"><svg class="ic" aria-hidden="true"><use href="#i-life"/></svg>Survival Mode</button>
+          <button class="tab" role="tab" id="tab-tracker" aria-controls="panel-tracker" aria-selected="false" tabindex="-1" data-tab="tracker"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg>Tracker</button>
+          <button class="tab" role="tab" id="tab-share" aria-controls="panel-share" aria-selected="false" tabindex="-1" data-tab="share"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>Share card</button>
+        </div>
+
+        <!-- Calculator -->
+        <div class="panel" id="panel-calculator" role="tabpanel" aria-labelledby="tab-calculator">
+          <div class="intro">
+            <h3>Student budget calculator</h3>
+            <p>Tell us what you have and what you expect to spend. We'll show whether your money can last.</p>
+          </div>
+          <form id="calc-form" novalidate autocomplete="off">
+            <div class="form-grid">
+              <fieldset>
+                <legend><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Money you have</legend>
+                <div class="fgroup">
+                  <div class="field">
+                    <label for="c-allowance">Total allowance</label>
+                    <div class="inp money"><input id="c-allowance" name="allowance" inputmode="decimal" placeholder="e.g. 30,000" aria-describedby="err-c-allowance"></div>
+                    <p class="err" id="err-c-allowance" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="c-days">Days the money must last</label>
+                    <div class="inp"><input id="c-days" name="days" inputmode="numeric" placeholder="e.g. 30" aria-describedby="err-c-days hint-c-days"></div>
+                    <p class="hint" id="hint-c-days">Count from today until your next allowance.</p>
+                    <p class="err" id="err-c-days" hidden></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend><svg class="ic" aria-hidden="true"><use href="#i-food"/></svg>Daily costs</legend>
+                <div class="fgroup">
+                  <div class="field">
+                    <label for="c-feed">Feeding per day</label>
+                    <div class="inp money"><input id="c-feed" name="feed" inputmode="decimal" placeholder="e.g. 450" aria-describedby="err-c-feed"></div>
+                    <p class="err" id="err-c-feed" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="c-transport">Transportation per day</label>
+                    <div class="inp money"><input id="c-transport" name="transport" inputmode="decimal" placeholder="e.g. 150" aria-describedby="err-c-transport"></div>
+                    <p class="err" id="err-c-transport" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="c-otherDaily">Other daily expenses <span class="opt">(optional)</span></label>
+                    <div class="inp money"><input id="c-otherDaily" name="otherDaily" inputmode="decimal" placeholder="e.g. 50" aria-describedby="err-c-otherDaily"></div>
+                    <p class="err" id="err-c-otherDaily" hidden></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend><svg class="ic" aria-hidden="true"><use href="#i-wifi"/></svg>Costs for the whole period</legend>
+                <div class="fgroup">
+                  <div class="field">
+                    <label for="c-data">Mobile data <span class="opt">(total)</span></label>
+                    <div class="inp money"><input id="c-data" name="data" inputmode="decimal" placeholder="e.g. 2,000" aria-describedby="err-c-data"></div>
+                    <p class="err" id="err-c-data" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="c-subs">Subscriptions <span class="opt">(total)</span></label>
+                    <div class="inp money"><input id="c-subs" name="subs" inputmode="decimal" placeholder="e.g. 500" aria-describedby="err-c-subs"></div>
+                    <p class="err" id="err-c-subs" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="c-otherPeriodic">Other expenses <span class="opt">(total)</span></label>
+                    <div class="inp money"><input id="c-otherPeriodic" name="otherPeriodic" inputmode="decimal" placeholder="e.g. 500" aria-describedby="err-c-otherPeriodic"></div>
+                    <p class="err" id="err-c-otherPeriodic" hidden></p>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg>Optional details</legend>
+                <div class="fgroup">
+                  <div class="field">
+                    <label for="c-campus">University or campus <span class="opt">(optional)</span></label>
+                    <input id="c-campus" name="campus" type="text" maxlength="60" placeholder="e.g. your school's name">
+                  </div>
+                  <div class="field">
+                    <span class="lbl" id="lbl-housing">Where do you live? <span class="opt">(optional)</span></span>
+                    <div class="radios" role="radiogroup" aria-labelledby="lbl-housing">
+                      <label><input type="radio" name="housing" value="On campus"><span>On campus</span></label>
+                      <label><input type="radio" name="housing" value="Off campus"><span>Off campus</span></label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="c-next">Next allowance date <span class="opt">(optional)</span></label>
+                    <input id="c-next" name="next" type="date" aria-describedby="hint-c-next err-c-next">
+                    <p class="hint" id="hint-c-next">We'll check if your money lasts until this date.</p>
+                    <p class="err" id="err-c-next" hidden></p>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="form-error" id="calc-error" role="alert" hidden></div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>Calculate My Budget</button>
+              <button class="btn btn-ghost" type="button" id="calc-example">Try example numbers</button>
+              <button class="btn btn-ghost" type="button" id="calc-reset">Clear form</button>
+            </div>
+            <p class="note">Example numbers are only for trying the tool. They are not averages for Nigerian students. Results are estimates, not financial guarantees.</p>
+          </form>
+
+          <div class="results" id="results" aria-live="polite">
+            <div class="empty" id="results-empty">
+              <svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>
+              <h4>Your results will show up here</h4>
+              <p>Fill in the form above and tap Calculate My Budget.</p>
+            </div>
+            <div id="results-body" hidden></div>
+          </div>
+        </div>
+
+        <!-- Survival -->
+        <div class="panel" id="panel-survival" role="tabpanel" aria-labelledby="tab-survival" hidden>
+          <div class="intro">
+            <h3>Survival Mode</h3>
+            <p>Almost out of money and still waiting for your next allowance? Enter what you have left and how many days remain.</p>
+          </div>
+          <div class="two-col">
+            <div class="card">
+              <form id="surv-form" novalidate autocomplete="off">
+                <div class="fgroup" style="margin-top:0">
+                  <div class="field">
+                    <label for="s-left">Money you have left</label>
+                    <div class="inp money"><input id="s-left" inputmode="decimal" placeholder="e.g. 6,000" aria-describedby="err-s-left"></div>
+                    <p class="err" id="err-s-left" hidden></p>
+                  </div>
+                  <div class="field">
+                    <label for="s-days">Days before your next allowance</label>
+                    <div class="inp"><input id="s-days" inputmode="numeric" placeholder="e.g. 12" aria-describedby="err-s-days"></div>
+                    <p class="err" id="err-s-days" hidden></p>
+                  </div>
+                  <div class="field">
+                    <div class="range-top"><label for="s-reserve" style="margin:0">Emergency reserve</label><output id="s-reserve-out" for="s-reserve">15%</output></div>
+                    <input type="range" id="s-reserve" min="0" max="50" step="5" value="15" aria-describedby="hint-s-reserve">
+                    <p class="hint" id="hint-s-reserve">The share of your money you promise not to touch unless something urgent happens.</p>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button class="btn btn-primary" type="submit">Make my survival plan</button>
+                  <button class="btn btn-ghost" type="button" id="surv-example">Try example</button>
+                </div>
+                <p class="note">Example: ₦6,000 for 12 days. It's only a demo, not a typical amount.</p>
+              </form>
+            </div>
+            <div id="surv-out" aria-live="polite">
+              <div class="empty">
+                <svg class="ic" aria-hidden="true"><use href="#i-life"/></svg>
+                <h4>No survival plan yet</h4>
+                <p>Add your money and days on the left to get a daily budget you can follow.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracker -->
+        <div class="panel" id="panel-tracker" role="tabpanel" aria-labelledby="tab-tracker" hidden>
+          <div class="intro">
+            <h3>Expense tracker</h3>
+            <p>Record what you actually spend. Totals and comparisons update the moment you save.</p>
+          </div>
+          <div class="two-col">
+            <div style="display:grid;gap:1rem">
+              <div class="card">
+                <h4 id="exp-form-title">Add an expense</h4>
+                <form id="exp-form" novalidate autocomplete="off">
+                  <input type="hidden" id="e-id">
+                  <div class="inline-form">
+                    <div class="field">
+                      <label for="e-amount">Amount</label>
+                      <div class="inp money"><input id="e-amount" inputmode="decimal" placeholder="e.g. 700" aria-describedby="err-e-amount"></div>
+                      <p class="err" id="err-e-amount" hidden></p>
+                    </div>
+                    <div class="inline-form cols" style="gap:.8rem">
+                      <div class="field">
+                        <label for="e-cat">Category</label>
+                        <div class="inp sel"><select id="e-cat"></select></div>
+                      </div>
+                      <div class="field">
+                        <label for="e-date">Date</label>
+                        <input id="e-date" type="date" aria-describedby="err-e-date">
+                        <p class="err" id="err-e-date" hidden></p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="e-desc">Description <span class="opt">(optional)</span></label>
+                      <input id="e-desc" type="text" maxlength="80" placeholder="e.g. Jollof rice and chicken">
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button class="btn btn-primary" type="submit" id="e-submit"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg><span>Add expense</span></button>
+                    <button class="btn btn-ghost" type="button" id="e-cancel" hidden>Cancel edit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card" id="exp-compare"></div>
+              <div class="card" id="exp-cats"></div>
+            </div>
+            <div class="card" id="exp-list-card"></div>
+          </div>
+        </div>
+
+        <!-- Share -->
+        <div class="panel" id="panel-share" role="tabpanel" aria-labelledby="tab-share" hidden>
+          <div class="intro">
+            <h3>Shareable budget card</h3>
+            <p>Turn your plan into a clean card. Nothing is shared until you choose to share, copy, or download it.</p>
+          </div>
+          <div class="empty" id="share-empty">
+            <svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>
+            <h4>Calculate a budget first</h4>
+            <p>Your card is built from your budget calculator results.</p>
+            <button class="btn btn-primary" type="button" data-go="calculator">Open the calculator</button>
+          </div>
+          <div id="share-main" hidden>
+            <div class="share-wrap">
+              <div class="share-side card">
+                <h4 style="margin:0">Make your card</h4>
+                <p class="muted small">The card shows your allowance, period, daily limit, planned expenses and reserve. Only people you send it to will see it.</p>
+                <label class="toggle" id="sh-campus-wrap" hidden><input type="checkbox" id="sh-campus"><span>Show my campus name on the card</span></label>
+                <button class="btn btn-primary btn-block" type="button" id="sh-make">Create my card</button>
+                <div class="btn-stack" id="sh-actions" hidden>
+                  <button class="btn btn-ghost btn-block" type="button" id="sh-share"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg>Share</button>
+                  <button class="btn btn-ghost btn-block" type="button" id="sh-copy"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg>Copy as text</button>
+                  <button class="btn btn-ghost btn-block" type="button" id="sh-download"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg><span>Download image</span></button>
+                </div>
+              </div>
+              <div id="sc-slot">
+                <div class="empty"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><h4>Your card will appear here</h4><p>Tap "Create my card" to preview it.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Built around how allowances really run out.</h2>
+        <p>Five tools that work together. Tap any one to open it.</p>
+      </div>
+      <div class="feat-grid">
+        <a class="feat big" href="#calculator" data-go="calculator" style="--c:#C6FF4D">
+          <div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg></div>
+          <h3>Budget calculator</h3>
+          <p>Enter your allowance and costs. Get your projected spending, expected balance, a safe daily limit, and how much to cut if you're over.</p>
+        </a>
+        <a class="feat" href="#survival" data-go="survival" style="--c:#38D9FF">
+          <div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-life"/></svg></div>
+          <h3>Survival Mode</h3>
+          <p>Low on cash? Turn what's left into a daily budget with a reserve.</p>
+        </a>
+        <a class="feat" href="#tracker" data-go="tracker" style="--c:#8B5CF6">
+          <div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></div>
+          <h3>Expense tracker</h3>
+          <p>Log spending by category and see it against your plan.</p>
+        </a>
+        <a class="feat" href="#share" data-go="share" style="--c:#F472B6">
+          <div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg></div>
+          <h3>Budget cards</h3>
+          <p>Share a clean summary of your plan, or keep it for yourself.</p>
+        </a>
+        <a class="feat" href="#tips" data-go="tips" style="--c:#FBBF24">
+          <div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg></div>
+          <h3>Campus money tips</h3>
+          <p>Short, practical reads on food, data, reserves and habits.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <section class="section" id="tips">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Campus Money Tips</h2>
+        <p>Short reads you can finish between lectures. General guidance, not financial advice.</p>
+      </div>
+      <div class="tips" id="tips-grid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="wrap about-grid">
+      <div class="card">
+        <div class="sec-head" style="margin-bottom:1rem"><h2>About CampusMeter</h2></div>
+        <p>CampusMeter helps university students in Nigeria stretch an allowance from one payment to the next. It shows where your money is going, how long it can last, and what a safe daily limit looks like.</p>
+        <p>It is designed for students living on allowances from parents, guardians, scholarships or small businesses, and for anyone who has reached the last week with too little left.</p>
+        <p>This is the first version. It runs entirely in your browser with no account, and it gives estimates based on the numbers you enter. It is not financial advice or a guarantee.</p>
+      </div>
+      <div class="card">
+        <ul class="facts">
+          <li><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span><b>Phone first.</b> Designed for small Android screens and slow connections.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span><b>Private by design.</b> Your budget is saved on your device in this version.</span></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Free.</b> No payment, no ads, no login.</span></li>
+        </ul>
+        <button class="btn btn-ghost btn-block" style="margin-top:1.2rem" type="button" data-install hidden><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Install CampusMeter on this phone</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <a class="brand" href="#home" data-go="home"><svg aria-hidden="true"><use href="#logo"/></svg><span>Campus<b>Meter</b></span></a>
+      <p class="muted" style="margin-top:.7rem;max-width:24rem">Make Your Money Survive Campus.</p>
+    </div>
+    <ul class="foot-links" aria-label="Footer">
+      <li><a href="#home" data-go="home">Home</a></li>
+      <li><a href="#calculator" data-go="calculator">Budget Calculator</a></li>
+      <li><a href="#tips" data-go="tips">Money Tips</a></li>
+      <li><button type="button" data-dialog="privacy">Privacy</button></li>
+      <li><button type="button" data-dialog="contact">Contact</button></li>
+    </ul>
+  </div>
+  <div class="wrap foot-copy">© <span id="year">2026</span> CampusMeter. Results are estimates, not financial guarantees.</div>
+</footer>
+
+<!-- Dialogs -->
+<dialog id="dlg-confirm" aria-labelledby="dc-title">
+  <div class="dlg-head"><h3 id="dc-title">Are you sure?</h3></div>
+  <div class="dlg-body"><p id="dc-msg"></p></div>
+  <div class="dlg-foot">
+    <button class="btn btn-ghost" type="button" id="dc-no">Keep it</button>
+    <button class="btn btn-solid-danger" type="button" id="dc-yes">Delete</button>
+  </div>
+</dialog>
+<dialog id="dlg-article" aria-labelledby="da-title">
+  <div class="dlg-head"><div><h3 id="da-title"></h3><p class="art-meta" id="da-meta"></p></div><button class="icon-btn" type="button" data-close aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="dlg-body" id="da-body"></div>
+</dialog>
+<dialog id="dlg-info" aria-labelledby="di-title">
+  <div class="dlg-head"><h3 id="di-title"></h3><button class="icon-btn" type="button" data-close aria-label="Close"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="dlg-body" id="di-body"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* CampusMeter — vanilla JS, no dependencies. Data stays in localStorage. */
+(() => {
+'use strict';
+
+/* =========================================================
+   Config you may want to edit
+   ========================================================= */
+const CONTACT = { instagram: 'a_learned_king', x: 'Afekiluo2016', github: 'Afekiluo' };
+const KEY = 'campusmeter.v1';
+
+/* =========================================================
+   Helpers
+   ========================================================= */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const ic = n => `<svg class="ic" aria-hidden="true"><use href="#${n}"/></svg>`;
+
+let nf;
+try { nf = new Intl.NumberFormat('en-NG', { maximumFractionDigits: 0 }); } catch (e) { nf = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }); }
+const naira = n => (n < 0 ? '-' : '') + '₦' + nf.format(Math.abs(Math.round(n || 0)));
+const nairaFloor = n => '₦' + nf.format(Math.max(0, Math.floor((n || 0) + 1e-9)));
+const pctText = p => (p > 999 ? '999%+' : Math.round(p) + '%');
+const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+
+function pad(n) { return String(n).padStart(2, '0'); }
+function todayISO() { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function parseISO(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+function daysBetween(a, b) { const da = parseISO(a), db = parseISO(b); return da && db ? Math.round((db - da) / 86400000) : null; }
+function fmtDate(s) {
+  const d = parseISO(s); if (!d) return '';
+  try { return d.toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' }); }
+  catch (e) { return s; }
+}
+
+/* ---------- parsing & validation ---------- */
+function parseNum(raw) {
+  const s = String(raw == null ? '' : raw).replace(/[₦,\s]/g, '');
+  if (s === '') return { empty: true };
+  if (/^-\d*\.?\d*$/.test(s)) return { neg: true };
+  if (!/^\d+(\.\d{1,2})?$/.test(s) && !/^\.\d{1,2}$/.test(s)) return { invalid: true };
+  const n = parseFloat(s);
+  if (!isFinite(n)) return { invalid: true };
+  if (n > 1e9) return { big: true };
+  return { value: n };
+}
+/* spec: {kind:'money'|'int', required, positive, emptyMsg} -> {value} | {error} */
+function readField(el, spec) {
+  const r = parseNum(el.value);
+  if (r.empty) return spec.required ? { error: spec.emptyMsg || 'This field is required.' } : { value: 0 };
+  if (r.neg) return { error: spec.positive ? 'Enter an amount greater than 0.' : 'Enter 0 or more. Negative amounts are not allowed.' };
+  if (r.invalid) return { error: spec.kind === 'int' ? 'Use whole numbers only, like 30.' : 'Use numbers only, like 1,500 or 1500.' };
+  if (r.big) return { error: 'That number is too large. Check for extra zeros.' };
+  const n = r.value;
+  if (spec.kind === 'int') {
+    if (n % 1 !== 0) return { error: 'Use a whole number of days.' };
+    if (n < 1 || n > 365) return { error: 'Enter a number of days from 1 to 365.' };
+  }
+  if (spec.positive && n <= 0) return { error: 'Enter an amount greater than 0.' };
+  return { value: n };
+}
+function setErr(id, msg) {
+  const input = document.getElementById(id), err = document.getElementById('err-' + id);
+  if (!input || !err) return;
+  if (msg) { err.textContent = msg; err.hidden = false; input.setAttribute('aria-invalid', 'true'); }
+  else { err.textContent = ''; err.hidden = true; input.removeAttribute('aria-invalid'); }
+}
+function clearErrs(root) { $$('.err', root).forEach(e => { e.hidden = true; e.textContent = ''; }); $$('[aria-invalid]', root).forEach(i => i.removeAttribute('aria-invalid')); }
+function fmtInput(el) {
+  const r = parseNum(el.value);
+  if (r.value == null) return;
+  el.value = r.value % 1 === 0 ? nf.format(r.value) : r.value.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/* =========================================================
+   State + storage
+   ========================================================= */
+const defaults = () => ({
+  plan: null,
+  draft: {},
+  survival: { left: null, days: null, reserve: 15, log: [] },
+  expenses: []
+});
+let state = defaults();
+let storageOK = true;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    const o = JSON.parse(raw);
+    const d = defaults();
+    state = {
+      plan: o && o.plan && typeof o.plan === 'object' ? o.plan : null,
+      draft: o && o.draft && typeof o.draft === 'object' ? o.draft : {},
+      survival: Object.assign(d.survival, o && o.survival),
+      expenses: Array.isArray(o && o.expenses) ? o.expenses.filter(e => e && isFinite(e.amount)) : []
+    };
+    if (!Array.isArray(state.survival.log)) state.survival.log = [];
+  } catch (e) { storageOK = false; }
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); }
+  catch (e) { if (storageOK) { storageOK = false; toast('This browser blocked saving. Your data will be lost when you close the page.'); } }
+}
+let draftTimer;
+function saveSoon() { clearTimeout(draftTimer); draftTimer = setTimeout(save, 300); }
+
+/* =========================================================
+   UI plumbing: toast, dialogs, navigation
+   ========================================================= */
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+function openDialog(d) { if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', ''); }
+function closeDialog(d) { if (typeof d.close === 'function') d.close(); else d.removeAttribute('open'); }
+
+function confirmBox(title, msg, yes) {
+  const d = $('#dlg-confirm');
+  if (typeof d.showModal !== 'function') return Promise.resolve(window.confirm(title + '\n\n' + msg));
+  return new Promise(resolve => {
+    $('#dc-title').textContent = title; $('#dc-msg').textContent = msg; $('#dc-yes').textContent = yes || 'Delete';
+    let result = false;
+    $('#dc-yes').onclick = () => { result = true; d.close(); };
+    $('#dc-no').onclick = () => { result = false; d.close(); };
+    d.addEventListener('close', () => resolve(result), { once: true });
+    d.showModal();
+  });
+}
+document.addEventListener('click', e => {
+  if (e.target.tagName === 'DIALOG') closeDialog(e.target);
+  const c = e.target.closest('[data-close]'); if (c) closeDialog(c.closest('dialog'));
+});
+
+const TABS = ['calculator', 'survival', 'tracker', 'share'];
+const SECTIONS = ['home', 'how', 'features', 'tips', 'about'];
+function setTab(name, focus) {
+  TABS.forEach(t => {
+    const sel = t === name, b = $('#tab-' + t), p = $('#panel-' + t);
+    b.setAttribute('aria-selected', sel ? 'true' : 'false'); b.tabIndex = sel ? 0 : -1; p.hidden = !sel;
+    if (sel && focus) b.focus();
+  });
+  const active = $('#tab-' + name); if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'auto' });
+  if (name === 'tracker') renderTracker();
+  if (name === 'share') renderShare();
+}
+function scrollToEl(el) { el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); }
+function go(target) {
+  closeMenu();
+  if (TABS.includes(target)) { setTab(target); scrollToEl($('#tool')); }
+  else if (SECTIONS.includes(target)) scrollToEl(document.getElementById(target));
+  else return;
+  try { history.replaceState(null, '', '#' + target); } catch (e) { /* ignore */ }
+}
+function closeMenu() { const m = $('#mnav'); if (!m.hidden) { m.hidden = true; $('#menu-btn').setAttribute('aria-expanded', 'false'); $('#menu-btn').setAttribute('aria-label', 'Open menu'); } }
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); go(g.dataset.go); return; }
+  const dl = e.target.closest('[data-dialog]');
+  if (dl) { showInfo(dl.dataset.dialog); return; }
+  const ar = e.target.closest('[data-article]');
+  if (ar) { showArticle(ar.dataset.article); return; }
+  const a = e.target.closest('[data-action]');
+  if (a) handleAction(a.dataset.action, a.dataset.id, a);
+});
+$('#menu-btn').addEventListener('click', () => {
+  const m = $('#mnav'), open = m.hidden;
+  m.hidden = !open; $('#menu-btn').setAttribute('aria-expanded', String(open)); $('#menu-btn').setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { setTab(b.dataset.tab); try { history.replaceState(null, '', '#' + b.dataset.tab); } catch (x) { /* ignore */ } } });
+$('#tabs').addEventListener('keydown', e => {
+  const i = TABS.findIndex(t => $('#tab-' + t).getAttribute('aria-selected') === 'true');
+  let n = -1;
+  if (e.key === 'ArrowRight') n = (i + 1) % TABS.length;
+  else if (e.key === 'ArrowLeft') n = (i + TABS.length - 1) % TABS.length;
+  else if (e.key === 'Home') n = 0; else if (e.key === 'End') n = TABS.length - 1;
+  if (n >= 0) { e.preventDefault(); setTab(TABS[n], true); }
+});
+window.addEventListener('scroll', () => $('#top').classList.toggle('scrolled', window.scrollY > 8), { passive: true });
+if ('IntersectionObserver' in window) {
+  const links = $$('.dnav a[data-sec]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) links.forEach(l => l.setAttribute('aria-current', l.dataset.sec === en.target.id ? 'true' : 'false')); });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['home', 'tool', 'features', 'about'].forEach(id => { const s = document.getElementById(id); if (s) io.observe(s); });
+}
+
+/* count-up number animation */
+function countTo(el, to, fmt) {
+  if (reduceMotion || !isFinite(to)) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), dur = 800;
+  const step = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(to * e); if (p < 1) requestAnimationFrame(step); else el.textContent = fmt(to); };
+  requestAnimationFrame(step);
+}
+function runAnimations(root) {
+  $$('[data-count]', root).forEach(el => {
+    const to = parseFloat(el.dataset.count), kind = el.dataset.fmt;
+    const fmt = kind === 'pct' ? (v => pctText(v)) : kind === 'floor' ? (v => nairaFloor(v)) : kind === 'int' ? (v => String(Math.round(v))) : (v => naira(v));
+    countTo(el, to, fmt);
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    $$('[data-ring]', root).forEach(c => { c.style.strokeDashoffset = c.dataset.ring; });
+    $$('.stack i[data-w]', root).forEach(i => { i.style.width = i.dataset.w + '%'; });
+    $$('.brow .bg i[data-w]', root).forEach(i => { i.style.width = i.dataset.w + '%'; });
+  }));
+}
+function ringHTML(pct, status, big, centerLabel) {
+  const r = 44, C = 2 * Math.PI * r, shown = Math.max(0, Math.min(100, pct));
+  const grad = status === 'bad' ? 'gBad' : status === 'warn' ? 'gWarn' : 'gGood';
+  return `<div class="ring${big ? ' big' : ''}"><svg viewBox="0 0 104 104" aria-hidden="true"><circle class="track" cx="52" cy="52" r="${r}"/><circle class="bar" cx="52" cy="52" r="${r}" stroke="url(#${grad})" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${C.toFixed(2)}" data-ring="${(C * (1 - shown / 100)).toFixed(2)}"/></svg><div class="ring-c"><b data-count="${pct}" data-fmt="pct">0%</b><small>${esc(centerLabel || 'of allowance')}</small></div></div>`;
+}
+
+/* =========================================================
+   Calculator
+   ========================================================= */
+const CALC_FIELDS = [
+  { id: 'c-allowance', key: 'allowance', kind: 'money', required: true, emptyMsg: 'Enter your allowance. Use 0 if you have none right now.' },
+  { id: 'c-days', key: 'days', kind: 'int', required: true, emptyMsg: 'Enter how many days the money must last.' },
+  { id: 'c-feed', key: 'feed', kind: 'money' },
+  { id: 'c-transport', key: 'transport', kind: 'money' },
+  { id: 'c-otherDaily', key: 'otherDaily', kind: 'money' },
+  { id: 'c-data', key: 'data', kind: 'money' },
+  { id: 'c-subs', key: 'subs', kind: 'money' },
+  { id: 'c-otherPeriodic', key: 'otherPeriodic', kind: 'money' }
+];
+const EXAMPLE = { 'c-allowance': '30,000', 'c-days': '30', 'c-feed': '450', 'c-transport': '150', 'c-otherDaily': '50', 'c-data': '2,000', 'c-subs': '500', 'c-otherPeriodic': '500' };
+
+function computePlan(p) {
+  const daily = p.feed + p.transport + p.otherDaily;
+  const periodic = p.data + p.subs + p.otherPeriodic;
+  const projected = daily * p.days + periodic;
+  const remaining = p.allowance - projected;
+  const shortfall = Math.max(0, -remaining);
+  const avgDaily = p.days > 0 ? projected / p.days : 0;
+  const pct = p.allowance > 0 ? projected / p.allowance * 100 : (projected > 0 ? 100 : 0);
+  const afterPeriodic = p.allowance - periodic;
+  const limit = p.days > 0 ? Math.max(0, afterPeriodic) / p.days : 0;
+  const periodicOver = afterPeriodic < 0;
+  const cutPerDay = p.days > 0 ? shortfall / p.days : 0;
+  const status = projected > p.allowance ? 'bad' : (pct > 80 ? 'warn' : 'good');
+  const coverDays = daily > 0 ? Math.floor(Math.max(0, afterPeriodic) / daily) : Infinity;
+  const parts = [
+    { name: 'Food', v: p.feed * p.days, c: '#C6FF4D' },
+    { name: 'Transport', v: p.transport * p.days, c: '#38D9FF' },
+    { name: 'Other daily costs', v: p.otherDaily * p.days, c: '#8B5CF6' },
+    { name: 'Mobile data', v: p.data, c: '#FBBF24' },
+    { name: 'Subscriptions', v: p.subs, c: '#F472B6' },
+    { name: 'Other period costs', v: p.otherPeriodic, c: '#4ADE80' }
+  ].filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+  /* until next allowance */
+  let next = null;
+  if (p.next) {
+    const nd = daysBetween(todayISO(), p.next);
+    if (nd != null && nd >= 0) {
+      const needed = daily * nd + periodic;
+      const short = Math.max(0, needed - p.allowance);
+      next = { days: nd, needed, short, lasts: needed <= p.allowance, cut: nd > 0 ? short / nd : 0 };
+    }
+  }
+  return { daily, periodic, projected, remaining, shortfall, avgDaily, pct, limit, afterPeriodic, periodicOver, cutPerDay, status, coverDays, parts, next };
+}
+
+function readCalcForm() {
+  const errs = {}, vals = {};
+  CALC_FIELDS.forEach(f => {
+    const r = readField($('#' + f.id), f);
+    if (r.error) errs[f.id] = r.error; else vals[f.key] = r.value;
+  });
+  const nextEl = $('#c-next');
+  if (nextEl.value) {
+    if (!parseISO(nextEl.value)) errs['c-next'] = 'Enter a valid date.';
+    else if (daysBetween(todayISO(), nextEl.value) < 0) errs['c-next'] = 'Pick today or a later date.';
+  }
+  const housing = $('input[name="housing"]:checked');
+  vals.campus = $('#c-campus').value.trim().slice(0, 60);
+  vals.housing = housing ? housing.value : '';
+  vals.next = nextEl.value || '';
+  return { errs, vals };
+}
+
+function onCalcSubmit(e) {
+  e.preventDefault();
+  const { errs, vals } = readCalcForm();
+  CALC_FIELDS.concat([{ id: 'c-next' }]).forEach(f => setErr(f.id, errs[f.id]));
+  const box = $('#calc-error'), ids = Object.keys(errs);
+  if (ids.length) {
+    box.textContent = 'Please fix the ' + (ids.length === 1 ? 'highlighted field' : ids.length + ' highlighted fields') + ' and try again.';
+    box.hidden = false; document.getElementById(ids[0]).focus();
+    return;
+  }
+  box.hidden = true;
+  state.plan = Object.assign({ at: Date.now() }, vals);
+  cardState.made = false;
+  save();
+  renderResults(true);
+  renderTracker(); renderShare();
+}
+
+function suggestions(p, r) {
+  const L = [];
+  const noCosts = r.daily === 0 && r.periodic === 0;
+  if (noCosts) {
+    L.push({ i: 'i-alert', c: '#FBBF24', t: `You haven't entered any costs yet, so the whole <b>${naira(p.allowance)}</b> shows as left over. Add your feeding, transport and data costs for a realistic plan.` });
+  } else if (r.shortfall > 0) {
+    L.push({ i: 'i-alert', c: '#FF6B6B', t: `Your projected expenses are <b>${naira(r.shortfall)}</b> above your allowance. Reducing daily spending by approximately <b>${naira(Math.ceil(r.cutPerDay))}</b> a day over ${plural(p.days, 'day')} would close the gap.` });
+    if (r.periodicOver) L.push({ i: 'i-wifi', c: '#FBBF24', t: `Your data, subscriptions and other period costs alone (<b>${naira(r.periodic)}</b>) are more than your allowance. Review those first, because trimming daily costs cannot fix that.` });
+    else L.push({ i: 'i-gauge', c: '#C6FF4D', t: `After period costs, your daily limit is <b>${nairaFloor(r.limit)}</b>. You planned to spend <b>${naira(r.daily)}</b> a day.` });
+  } else if (r.remaining > 0) {
+    L.push({ i: 'i-coins', c: '#4ADE80', t: `Your estimated balance is <b>${naira(r.remaining)}</b>. Consider keeping some of it as an emergency reserve, for example <b>${naira(r.remaining / 2)}</b>, and treating the rest as flexible.` });
+  } else {
+    L.push({ i: 'i-alert', c: '#FBBF24', t: `Your plan uses every naira, so one surprise cost would put you short. Look for a small saving to build a buffer.` });
+  }
+  if (!noCosts && r.status === 'warn' && r.shortfall === 0 && r.parts.length) {
+    const top = r.parts[0];
+    L.push({ i: 'i-alert', c: '#FBBF24', t: `You plan to use <b>${pctText(r.pct)}</b> of your allowance, which leaves little room for surprises. Trimming ${top.name.toLowerCase()} by 10% would free about <b>${naira(top.v * 0.1)}</b>.` });
+  }
+  if (r.parts.length && r.projected > 0) {
+    const top = r.parts[0], share = Math.round(top.v / r.projected * 100);
+    L.push({ i: 'i-chart', c: top.c, t: `Your ${top.name.toLowerCase()} budget is the largest share of your planned expenses: <b>${share}%</b> (${naira(top.v)}).` });
+  }
+  if (r.next && !r.next.lasts) {
+    L.push({ i: 'i-cal', c: '#38D9FF', t: `Your next allowance is in ${plural(r.next.days, 'day')}. At your planned pace you'd need <b>${naira(r.next.needed)}</b> to get there, <b>${naira(r.next.short)}</b> more than you have.` });
+  }
+  L.push({ i: 'i-receipt', c: '#8B5CF6', t: `Log what you really spend in the <b>Tracker</b> tab, so you can see early if you drift away from this plan.` });
+  return L;
+}
+
+function renderResults(scroll) {
+  const p = state.plan, empty = $('#results-empty'), body = $('#results-body');
+  if (!p) { empty.hidden = false; body.hidden = true; body.innerHTML = ''; return; }
+  const r = computePlan(p);
+  empty.hidden = true; body.hidden = false;
+  const where = [p.campus, p.housing].filter(Boolean).map(esc).join(' · ');
+  const msg = {
+    good: ['Your budget looks manageable.', `You plan to use ${pctText(r.pct)} of your allowance${r.remaining > 0 ? ' and keep about ' + naira(r.remaining) : ''}.`],
+    warn: ['Your budget is getting tight.', `You plan to use ${pctText(r.pct)} of your allowance, leaving only ${naira(r.remaining)} for surprises.`],
+    bad: ['Your projected expenses exceed your allowance.', `You are about ${naira(r.shortfall)} short over ${plural(p.days, 'day')}.`]
+  }[r.status];
+  const statusIcon = r.status === 'good' ? 'i-check' : 'i-alert';
+
+  /* will it last? */
+  let lastTitle, lastText, lastOk;
+  if (r.next) {
+    lastOk = r.next.lasts;
+    if (r.next.days === 0) { lastTitle = 'Your next allowance is today.'; lastText = `You only need to cover your period costs of ${naira(r.periodic)}, and you have ${naira(p.allowance)}.`; }
+    else if (lastOk) { lastTitle = 'Yes, your money should last until your next allowance.'; lastText = `For the ${plural(r.next.days, 'day')} until ${fmtDate(p.next)} you need about ${naira(r.next.needed)} and you have ${naira(p.allowance)}.`; }
+    else { lastTitle = 'Not at this pace.'; lastText = `Until ${fmtDate(p.next)} (${plural(r.next.days, 'day')}) you need about ${naira(r.next.needed)} but have ${naira(p.allowance)}, so you'd be ${naira(r.next.short)} short. Cutting about ${naira(Math.ceil(r.next.cut))} a day would close the gap.`; }
+  } else {
+    lastOk = r.projected <= p.allowance;
+    if (lastOk) { lastTitle = 'Yes, your money should last.'; lastText = `At your planned spending it should cover the ${plural(p.days, 'day')} you entered. Add a next allowance date for a date-based check.`; }
+    else { lastTitle = 'Not at this pace.'; lastText = r.periodicOver ? `Your period costs alone are more than your allowance.` : `At ${naira(r.daily)} a day, your money covers about ${plural(r.coverDays, 'day')} of your ${plural(p.days, 'day')}.`; }
+  }
+
+  const coverText = r.daily === 0 ? 'Not limited by daily costs' : (r.coverDays >= p.days ? `All ${plural(p.days, 'day')}` : `About ${plural(r.coverDays, 'day')} of ${p.days}`);
+  const stackBars = r.parts.map(x => `<i style="--c:${x.c}" data-w="${(x.v / r.projected * 100).toFixed(2)}" title="${esc(x.name)}"></i>`).join('');
+  const legend = r.parts.map(x => `<div class="lrow" style="--c:${x.c}"><i></i><span>${esc(x.name)}</span><b class="num">${naira(x.v)}</b><span class="p num">${Math.round(x.v / r.projected * 100)}%</span></div>`).join('');
+  const sugg = suggestions(p, r).map(s => `<li style="--c:${s.c}"><span class="pi">${ic(s.i)}</span><span>${s.t}</span></li>`).join('');
+  const moneyLeftCard = r.remaining >= 0
+    ? `<div class="stat" style="--c:#4ADE80"><div class="ico">${ic('i-coins')}</div><small>Money left</small><span class="val num" data-count="${r.remaining}">₦0</span><span class="sub">Expected balance at the end</span></div>`
+    : `<div class="stat neg" style="--c:#FF6B6B"><div class="ico">${ic('i-alert')}</div><small>Shortfall</small><span class="val num" data-count="${r.shortfall}">₦0</span><span class="sub">Money you'd be missing</span></div>`;
+  const limitSub = r.periodicOver ? 'Period costs alone exceed your allowance' : `You planned ${naira(r.daily)} a day`;
+
+  body.innerHTML = `
+    <div class="res-head"><h3>Your budget results</h3><span class="muted small">${where ? where + ' · ' : ''}${plural(p.days, 'day')}</span></div>
+    <div class="status ${r.status}" role="status">${ic(statusIcon)}<div><b>${msg[0]}</b><p>${msg[1]}</p></div></div>
+    <div class="stats">
+      <div class="stat" style="--c:#38D9FF"><div class="ico">${ic('i-wallet')}</div><small>Available allowance</small><span class="val num" data-count="${p.allowance}">₦0</span><span class="sub">For ${plural(p.days, 'day')}</span></div>
+      <div class="stat" style="--c:#8B5CF6"><div class="ico">${ic('i-receipt')}</div><small>Projected expenses</small><span class="val num" data-count="${r.projected}">₦0</span><span class="sub">Daily costs plus period costs</span></div>
+      ${moneyLeftCard}
+      <div class="stat hero-stat"><div class="ico">${ic('i-gauge')}</div><small>Daily spending limit</small><span class="val num" data-count="${Math.floor(r.limit + 1e-9)}" data-fmt="floor">₦0</span><span class="sub">per day · ${limitSub}</span></div>
+    </div>
+    <div class="dash-grid">
+      <div class="card ring-card">
+        <h4 style="margin:0">Budget used</h4>
+        ${ringHTML(r.pct, r.status, true, 'of allowance')}
+        <p class="muted small">The share of your allowance your plan expects to spend.</p>
+      </div>
+      <div class="card">
+        <h4>Where your money goes</h4>
+        ${r.parts.length ? `<div class="stack" role="img" aria-label="Expense breakdown bar">${stackBars}</div><div class="legend">${legend}</div>` : `<p class="muted">Add some costs to see the breakdown.</p>`}
+      </div>
+    </div>
+    <div class="status ${lastOk ? 'good' : 'bad'}">${ic(lastOk ? 'i-check' : 'i-alert')}<div><b>${lastTitle}</b><p>${lastText}</p></div></div>
+    <div class="card">
+      <h4>Key numbers</h4>
+      <div class="kv">
+        <div><span>Average daily spending</span><b class="num">${naira(r.avgDaily)}</b></div>
+        <div><span>Planned daily costs</span><b class="num">${naira(r.daily)}</b></div>
+        <div><span>Recommended daily limit</span><b class="num">${nairaFloor(r.limit)}</b></div>
+        <div><span>Budget used</span><b class="num">${pctText(r.pct)}</b></div>
+        <div><span>Days your money covers</span><b>${coverText}</b></div>
+        <div><span>${r.shortfall > 0 ? 'Cut needed' : 'Cuts needed'}</span><b class="num">${r.shortfall > 0 ? `About ${naira(Math.ceil(r.cutPerDay))} a day (${naira(r.shortfall)} total)` : 'None'}</b></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Your Money Survival Plan</h4>
+      <ul class="plan-list">${sugg}</ul>
+    </div>
+    <details class="how">
+      <summary>How we worked this out</summary>
+      <div class="body">
+        <p><b>Daily costs</b> = feeding + transport + other daily = ${naira(p.feed)} + ${naira(p.transport)} + ${naira(p.otherDaily)} = ${naira(r.daily)} a day.</p>
+        <p><b>Projected expenses</b> = daily costs × days + period costs = ${naira(r.daily)} × ${p.days} + ${naira(r.periodic)} = ${naira(r.projected)}.</p>
+        <p><b>Money left</b> = allowance − projected expenses = ${naira(p.allowance)} − ${naira(r.projected)} = ${naira(r.remaining)}${r.remaining < 0 ? ' (a shortfall)' : ''}.</p>
+        <p><b>Average daily spending</b> = projected expenses ÷ days = ${naira(r.projected)} ÷ ${p.days} = ${naira(r.avgDaily)}.</p>
+        <p><b>Daily limit</b> = (allowance − period costs) ÷ days = (${naira(p.allowance)} − ${naira(r.periodic)}) ÷ ${p.days} = ${nairaFloor(r.limit)}${r.periodicOver ? '. It never goes below ₦0.' : '.'} That is what you can spend each day after your data, subscriptions and other period costs are covered.</p>
+        <p><b>Budget used</b> = projected expenses ÷ allowance × 100 = ${pctText(r.pct)}. Green means 80% or less, amber means above 80% and up to 100%, red means over your allowance.</p>
+      </div>
+    </details>
+    <div class="res-actions">
+      <button class="btn btn-primary" type="button" data-go="share">${ic('i-share')}Make a share card</button>
+      <button class="btn btn-ghost" type="button" data-go="tracker">${ic('i-chart')}Track my expenses</button>
+    </div>
+    <p class="disclaimer">These results are estimates based on the numbers you entered, not financial guarantees.</p>`;
+  runAnimations(body);
+  if (scroll) scrollToEl($('#results'));
+}
+
+/* =========================================================
+   Survival Mode
+   ========================================================= */
+const SURV_EMPTY = `<div class="empty">${ic('i-life')}<h4>No survival plan yet</h4><p>Add your money and days on the left to get a daily budget you can follow.</p></div>`;
+
+function survCalc(s) {
+  const left = s.left, days = s.days;
+  const reserve = left * s.reserve / 100;
+  const daily = (left - reserve) / days;
+  const maxPerDay = left / days;
+  const spent = s.log.reduce((a, x) => a + x.amount, 0);
+  const remaining = left - spent;
+  const lastDay = s.log.reduce((m, x) => Math.max(m, x.day), 0);
+  const daysLeft = Math.max(0, days - lastDay);
+  const adjDaily = daysLeft > 0 ? Math.max(0, remaining - reserve) / daysLeft : 0;
+  const stretch = daysLeft > 0 ? Math.max(0, remaining) / daysLeft : 0;
+  return { reserve, daily, maxPerDay, spent, remaining, lastDay, daysLeft, adjDaily, stretch };
+}
+
+function renderSurvival() {
+  const s = state.survival, out = $('#surv-out');
+  if (!(s.left > 0 && s.days >= 1)) { out.innerHTML = SURV_EMPTY; return; }
+  const keepAmt = $('#sl-amount') ? $('#sl-amount').value : '';
+  const keepDay = $('#sl-day') ? parseInt($('#sl-day').value, 10) : 0;
+  const c = survCalc(s);
+
+  /* weekly plan */
+  const weeks = [];
+  for (let w = 0; w * 7 < s.days; w++) {
+    const a = w * 7 + 1, b = Math.min(s.days, w * 7 + 7);
+    weeks.push(`<div><span>Week ${w + 1} (${a === b ? 'day ' + a : 'days ' + a + '–' + b})</span><b class="num">${nairaFloor(c.daily * (b - a + 1))}</b></div>`);
+  }
+
+  /* status message after logging */
+  let st, stIcon = 'i-check', stTitle, stText;
+  if (c.daysLeft <= 0) {
+    st = c.remaining >= c.reserve ? 'good' : (c.remaining > 0 ? 'warn' : 'bad');
+    stTitle = 'Your plan period is complete.';
+    stText = c.remaining >= 0 ? `You finished with ${naira(c.remaining)} left.` : `You spent ${naira(-c.remaining)} more than you had.`;
+    if (st !== 'good') stIcon = 'i-alert';
+  } else if (c.remaining <= 0) {
+    st = 'bad'; stIcon = 'i-alert';
+    stTitle = 'Your money has run out.';
+    stText = `You still have ${plural(c.daysLeft, 'day')} to cover. Consider what you can pause, skip, or ask for help with today.`;
+  } else if (c.remaining < c.reserve) {
+    st = 'warn'; stIcon = 'i-alert';
+    stTitle = "You've started using your reserve.";
+    stText = `You have ${naira(c.remaining)} for ${plural(c.daysLeft, 'day')}. To make it last, spend no more than ${nairaFloor(c.stretch)} a day.`;
+  } else {
+    st = 'good';
+    stTitle = `Spend up to ${nairaFloor(c.adjDaily)} a day.`;
+    stText = `That keeps your ${naira(c.reserve)} reserve safe for the ${plural(c.daysLeft, 'day')} still to go.`;
+  }
+
+  /* log rows */
+  const dayTotals = {};
+  s.log.forEach(x => { dayTotals[x.day] = (dayTotals[x.day] || 0) + x.amount; });
+  const rows = s.log.slice().sort((a, b) => a.day - b.day || a.at - b.at).map(x => {
+    const over = dayTotals[x.day] > c.daily + 0.5;
+    return `<div class="logrow"><span class="dchip ${over ? 'over' : 'ok'}">Day ${x.day}</span><span><b class="num">${naira(x.amount)}</b>${over ? ' <span class="muted small">(day total ' + naira(dayTotals[x.day]) + ', above plan)</span>' : ''}</span><button class="icon-btn" type="button" data-action="surv-del" data-id="${esc(x.id)}" aria-label="Delete ${naira(x.amount)} spent on day ${x.day}">${ic('i-trash')}</button></div>`;
+  }).join('');
+
+  const defDay = keepDay >= 1 && keepDay <= s.days ? keepDay : Math.min(s.days, c.lastDay + 1);
+  let opts = '';
+  for (let d = 1; d <= s.days; d++) opts += `<option value="${d}"${d === defDay ? ' selected' : ''}>Day ${d}</option>`;
+
+  out.innerHTML = `
+    <div style="display:grid;gap:1rem">
+      <div class="card">
+        <h4 style="margin-bottom:.4rem">Your remaining money needs to cover ${plural(s.days, 'day')}.</h4>
+        <p class="muted small" style="margin-bottom:1rem">Starting with ${naira(s.left)} and keeping ${s.reserve}% as a reserve.</p>
+        <div class="stats" style="grid-template-columns:1fr 1fr">
+          <div class="stat hero-stat"><div class="ico">${ic('i-gauge')}</div><small>Suggested daily budget</small><span class="val num" data-count="${Math.floor(c.daily + 1e-9)}" data-fmt="floor">₦0</span><span class="sub">per day, reserve protected</span></div>
+          <div class="stat" style="--c:#38D9FF"><div class="ico">${ic('i-bolt')}</div><small>Maximum per day</small><span class="val num" data-count="${Math.floor(c.maxPerDay + 1e-9)}" data-fmt="floor">₦0</span><span class="sub">if you use the reserve too</span></div>
+          <div class="stat" style="--c:#4ADE80"><div class="ico">${ic('i-shield')}</div><small>Emergency reserve</small><span class="val num" data-count="${c.reserve}">₦0</span><span class="sub">${s.reserve}% of your money</span></div>
+          <div class="stat" style="--c:#8B5CF6"><div class="ico">${ic('i-cal')}</div><small>Days to cover</small><span class="val num" data-count="${s.days}" data-fmt="int">0</span><span class="sub">until your next allowance</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Simple spending plan</h4>
+        <p class="muted small" style="margin-bottom:.8rem">Stay under ${nairaFloor(c.daily)} a day, or ${nairaFloor(c.daily * Math.min(7, s.days))} a week.</p>
+        <div class="week-list">${weeks.join('')}</div>
+      </div>
+      <div class="card">
+        <h4>Daily tracker</h4>
+        <div class="status ${st}" style="margin-bottom:1rem">${ic(stIcon)}<div><b>${stTitle}</b><p>${stText}</p></div></div>
+        <div class="kv" style="margin-bottom:1rem">
+          <div><span>Spent so far</span><b class="num">${naira(c.spent)}</b></div>
+          <div><span>Money left now</span><b class="num" style="color:${c.remaining < 0 ? 'var(--bad)' : 'var(--lime)'}">${naira(Math.max(0, c.remaining))}</b></div>
+          <div><span>Days remaining</span><b class="num">${c.daysLeft}</b></div>
+        </div>
+        <form id="surv-log-form" class="inline-form cols" novalidate autocomplete="off">
+          <div class="field"><label for="sl-day">Day</label><div class="inp sel"><select id="sl-day">${opts}</select></div></div>
+          <div class="field"><label for="sl-amount">Amount spent</label><div class="inp money"><input id="sl-amount" inputmode="decimal" placeholder="e.g. 700" value="${esc(keepAmt)}" aria-describedby="err-sl-amount"></div><p class="err" id="err-sl-amount" hidden></p></div>
+          <button class="btn btn-primary" type="submit" style="grid-column:1/-1">${ic('i-plus')}Add spending</button>
+        </form>
+        ${rows ? `<div style="margin-top:1rem">${rows}</div>` : `<p class="muted small" style="margin-top:1rem">No spending logged yet. Days without an entry count as ₦0 spent.</p>`}
+        <button class="btn btn-ghost btn-sm" type="button" data-action="surv-reset" style="margin-top:1rem">Start over</button>
+      </div>
+      <p class="disclaimer">Results are estimates to help you plan, not financial guarantees.</p>
+    </div>`;
+  runAnimations(out);
+}
+
+function onSurvSubmit(e) {
+  e.preventDefault();
+  const l = readField($('#s-left'), { kind: 'money', required: true, positive: true, emptyMsg: 'Enter the money you have left.' });
+  const d = readField($('#s-days'), { kind: 'int', required: true, emptyMsg: 'Enter the days before your next allowance.' });
+  setErr('s-left', l.error); setErr('s-days', d.error);
+  if (l.error) { $('#s-left').focus(); return; }
+  if (d.error) { $('#s-days').focus(); return; }
+  state.survival.left = l.value; state.survival.days = d.value;
+  save(); renderSurvival();
+  if (window.innerWidth < 900) scrollToEl($('#surv-out'));
+}
+function onSurvLog(e) {
+  e.preventDefault();
+  const r = readField($('#sl-amount'), { kind: 'money', required: true, positive: true, emptyMsg: 'Enter the amount you spent.' });
+  setErr('sl-amount', r.error);
+  if (r.error) { $('#sl-amount').focus(); return; }
+  state.survival.log.push({ id: uid(), day: parseInt($('#sl-day').value, 10) || 1, amount: r.value, at: Date.now() });
+  save();
+  const el = $('#sl-amount'); el.value = '';
+  renderSurvival();
+  toast('Spending added');
+}
+function setReserveUI(v) {
+  const r = $('#s-reserve'); r.value = v; $('#s-reserve-out').textContent = v + '%';
+  r.style.setProperty('--fill', (v / +r.max * 100) + '%');
+}
+
+/* =========================================================
+   Expense tracker
+   ========================================================= */
+const CATS = [
+  { id: 'Food', icon: 'i-food', color: '#C6FF4D' },
+  { id: 'Transportation', icon: 'i-bus', color: '#38D9FF' },
+  { id: 'Mobile data', icon: 'i-wifi', color: '#8B5CF6' },
+  { id: 'School expenses', icon: 'i-book', color: '#FBBF24' },
+  { id: 'Accommodation', icon: 'i-home', color: '#4ADE80' },
+  { id: 'Entertainment', icon: 'i-game', color: '#F472B6' },
+  { id: 'Other', icon: 'i-more', color: '#9AA6C0' }
+];
+const catOf = id => CATS.find(c => c.id === id) || CATS[CATS.length - 1];
+let filterCat = 'all';
+
+function setExpMode(exp) {
+  const editing = !!exp;
+  $('#exp-form-title').textContent = editing ? 'Edit expense' : 'Add an expense';
+  $('#e-submit span').textContent = editing ? 'Save changes' : 'Add expense';
+  $('#e-cancel').hidden = !editing;
+  $('#e-id').value = editing ? exp.id : '';
+  if (editing) {
+    $('#e-amount').value = exp.amount % 1 === 0 ? nf.format(exp.amount) : String(exp.amount);
+    $('#e-cat').value = exp.category; $('#e-date').value = exp.date; $('#e-desc').value = exp.desc || '';
+  } else {
+    $('#e-amount').value = ''; $('#e-desc').value = ''; $('#e-date').value = todayISO();
+  }
+  clearErrs($('#exp-form'));
+}
+function onExpSubmit(e) {
+  e.preventDefault();
+  const a = readField($('#e-amount'), { kind: 'money', required: true, positive: true, emptyMsg: 'Enter the amount you spent.' });
+  const dateEl = $('#e-date');
+  let dErr = '';
+  if (!dateEl.value || !parseISO(dateEl.value)) dErr = 'Pick the date you spent it.';
+  setErr('e-amount', a.error); setErr('e-date', dErr);
+  if (a.error) { $('#e-amount').focus(); return; }
+  if (dErr) { dateEl.focus(); return; }
+  const id = $('#e-id').value;
+  const data = { amount: a.value, category: $('#e-cat').value, date: dateEl.value, desc: $('#e-desc').value.trim().slice(0, 80) };
+  if (id) {
+    const ex = state.expenses.find(x => x.id === id);
+    if (ex) Object.assign(ex, data);
+    toast('Changes saved');
+  } else {
+    state.expenses.push(Object.assign({ id: uid(), at: Date.now() }, data));
+    if (filterCat !== 'all' && filterCat !== data.category) filterCat = 'all';
+    toast('Expense added');
+  }
+  save(); setExpMode(null); renderTracker();
+}
+
+function renderTracker() { renderExpList(); renderExpCats(); renderExpCompare(); }
+
+function renderExpList() {
+  const card = $('#exp-list-card'), all = state.expenses;
+  const list = all.filter(x => filterCat === 'all' || x.category === filterCat).sort((a, b) => b.date.localeCompare(a.date) || b.at - a.at);
+  const total = list.reduce((s, x) => s + x.amount, 0);
+  const chips = ['all'].concat(CATS.map(c => c.id)).map(id => `<button class="chip" type="button" data-action="filter" data-id="${esc(id)}" aria-pressed="${filterCat === id}">${id === 'all' ? 'All' : esc(id)}</button>`).join('');
+  let rows;
+  if (!all.length) rows = `<div class="empty">${ic('i-receipt')}<h4>No expenses yet</h4><p>Add your first expense with the form. Totals and charts will appear here.</p></div>`;
+  else if (!list.length) rows = `<div class="empty"><h4>No ${esc(filterCat.toLowerCase())} expenses</h4><p>Pick another category or add one.</p></div>`;
+  else rows = list.map(x => {
+    const c = catOf(x.category), title = x.desc || x.category;
+    return `<div class="exp" style="--c:${c.color}"><span class="ico">${ic(c.icon)}</span><div class="t"><b>${esc(title)}</b><small>${x.desc ? esc(x.category) + ' · ' : ''}${esc(fmtDate(x.date))}</small></div><div class="r"><b class="num">${naira(x.amount)}</b><div class="acts"><button class="icon-btn" type="button" data-action="exp-edit" data-id="${esc(x.id)}" aria-label="Edit ${esc(title)}">${ic('i-edit')}</button><button class="icon-btn" type="button" data-action="exp-del" data-id="${esc(x.id)}" aria-label="Delete ${esc(title)}">${ic('i-trash')}</button></div></div></div>`;
+  }).join('');
+  card.innerHTML = `
+    <div class="total-line"><div><span style="display:block">Total spending${filterCat === 'all' ? '' : ' · ' + esc(filterCat)}</span><b class="num">${naira(total)}</b></div><span>${plural(list.length, 'expense')}</span></div>
+    <div class="chips" role="group" aria-label="Filter by category">${chips}</div>
+    <div>${rows}</div>`;
+}
+
+function renderExpCats() {
+  const card = $('#exp-cats'), all = state.expenses;
+  const total = all.reduce((s, x) => s + x.amount, 0);
+  const by = CATS.map(c => ({ c, v: all.filter(x => x.category === c.id).reduce((s, x) => s + x.amount, 0) })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+  if (!by.length) { card.innerHTML = `<h4>Spending by category</h4><p class="muted small">Nothing recorded yet.</p>`; return; }
+  card.innerHTML = `<h4>Spending by category</h4><div class="bars">${by.map(x => `<div class="brow" style="--c:${x.c.color}"><div class="top"><span>${ic(x.c.icon)}${esc(x.c.id)}</span><b class="num">${naira(x.v)}</b></div><div class="bg"><i data-w="${(x.v / total * 100).toFixed(1)}"></i></div><div class="meta">${Math.round(x.v / total * 100)}% of everything you recorded</div></div>`).join('')}</div>`;
+  runAnimations(card);
+}
+
+function renderExpCompare() {
+  const card = $('#exp-compare'), all = state.expenses, p = state.plan;
+  const actual = all.reduce((s, x) => s + x.amount, 0);
+  if (!p) {
+    card.innerHTML = `<h4>Actual vs. planned</h4><p class="muted small">Calculate a budget to see how your real spending compares with your plan.</p><button class="btn btn-ghost btn-sm" type="button" data-go="calculator" style="margin-top:.9rem">Open the calculator</button>`;
+    return;
+  }
+  const r = computePlan(p);
+  const planned = r.projected;
+  const pct = planned > 0 ? actual / planned * 100 : (actual > 0 ? 100 : 0);
+  const st = actual > planned ? 'bad' : (pct > 80 ? 'warn' : 'good');
+  const sum = ids => all.filter(x => ids.includes(x.category)).reduce((s, x) => s + x.amount, 0);
+  const groups = [
+    { name: 'Food', plan: p.feed * p.days, act: sum(['Food']), c: '#C6FF4D' },
+    { name: 'Transport', plan: p.transport * p.days, act: sum(['Transportation']), c: '#38D9FF' },
+    { name: 'Mobile data', plan: p.data, act: sum(['Mobile data']), c: '#8B5CF6' },
+    { name: 'Everything else', plan: p.otherDaily * p.days + p.subs + p.otherPeriodic, act: sum(['School expenses', 'Accommodation', 'Entertainment', 'Other']), c: '#F472B6' }
+  ];
+  const msg = actual > planned ? `${naira(actual - planned)} over your plan` : `${naira(planned - actual)} still inside your plan`;
+  card.innerHTML = `
+    <h4>Actual vs. planned</h4>
+    <div class="compare-total ${st}">
+      <div style="display:flex;justify-content:space-between;gap:.8rem;flex-wrap:wrap"><span><b class="num">${naira(actual)}</b> <span class="muted small">spent of ${naira(planned)} planned</span></span><span class="small" style="color:${st === 'bad' ? 'var(--bad)' : st === 'warn' ? 'var(--warn)' : 'var(--good)'};font-weight:700">${msg}</span></div>
+      <div class="meter"><i style="--w:${Math.min(100, pct).toFixed(1)}%"></i></div>
+    </div>
+    <div class="bars">${groups.map(g => {
+      const w = g.plan > 0 ? Math.min(100, g.act / g.plan * 100) : (g.act > 0 ? 100 : 0);
+      const over = g.act > g.plan;
+      return `<div class="brow" style="--c:${over ? 'var(--bad)' : g.c}"><div class="top"><span>${esc(g.name)}</span><b class="num">${naira(g.act)} <span class="muted small" style="font-weight:500">of ${naira(g.plan)}</span></b></div><div class="bg"><i data-w="${w.toFixed(1)}"></i></div></div>`;
+    }).join('')}</div>
+    <p class="note" style="margin-bottom:0">Compared with all expenses you've recorded.${all.length ? ' Starting a new budget period clears them.' : ''}</p>
+    ${all.length ? `<button class="btn btn-ghost btn-sm" type="button" data-action="exp-clear" style="margin-top:.8rem">Start a new period</button>` : ''}`;
+  runAnimations(card);
+}
+
+/* =========================================================
+   Share card
+   ========================================================= */
+const cardState = { made: false, blobP: null };
+const SC_EMPTY = `<div class="empty">${ic('i-phone')}<h4>Your card will appear here</h4><p>Tap "Create my card" to preview it.</p></div>`;
+const QUOTE = 'Making every naira count.';
+
+function cardData() {
+  const p = state.plan, r = computePlan(p);
+  return {
+    allowance: p.allowance, days: p.days, limit: r.limit, projected: r.projected,
+    remaining: r.remaining, shortfall: r.shortfall,
+    campus: ($('#sh-campus').checked && p.campus) ? p.campus : ''
+  };
+}
+function lastRow(d) { return d.remaining >= 0 ? ['Emergency reserve', naira(d.remaining)] : ['Shortfall', naira(d.shortfall)]; }
+function shareUrl() { return /^https?:$/.test(location.protocol) ? location.origin + location.pathname : ''; }
+function cardText(d) {
+  const lr = lastRow(d), url = shareUrl();
+  return ['CAMPUSMETER', 'MY CAMPUS MONEY PLAN', d.campus ? d.campus : null, '',
+    'Available allowance: ' + naira(d.allowance),
+    'Budget period: ' + plural(d.days, 'day'),
+    'Daily spending limit: ' + nairaFloor(d.limit),
+    'Planned expenses: ' + naira(d.projected),
+    lr[0] + ': ' + lr[1], '',
+    '\u201C' + QUOTE + '\u201D', url ? 'Plan yours: ' + url : null].filter(x => x !== null).join('\n');
+}
+function cardHTML(d) {
+  const lr = lastRow(d);
+  return `<div class="sc"><div class="sc-brand"><svg aria-hidden="true"><use href="#logo"/></svg>CAMPUSMETER</div>
+    <h4>My campus<br>money plan</h4>${d.campus ? `<p class="where">${esc(d.campus)}</p>` : ''}
+    <div class="sc-big"><small>Daily spending limit</small><b class="num">${nairaFloor(d.limit)}</b><span>per day</span></div>
+    <div class="sc-rows">
+      <div><span>Available allowance</span><b class="num">${naira(d.allowance)}</b></div>
+      <div><span>Budget period</span><b>${plural(d.days, 'day')}</b></div>
+      <div><span>Planned expenses</span><b class="num">${naira(d.projected)}</b></div>
+      <div><span>${lr[0]}</span><b class="num">${lr[1]}</b></div>
+    </div>
+    <p class="sc-quote">\u201C${QUOTE}\u201D</p></div>`;
+}
+
+function renderShare() {
+  const p = state.plan;
+  $('#share-empty').hidden = !!p; $('#share-main').hidden = !p;
+  if (!p) return;
+  $('#sh-campus-wrap').hidden = !p.campus;
+  if (!cardState.made) { $('#sc-slot').innerHTML = SC_EMPTY; $('#sh-actions').hidden = true; $('#sh-make').textContent = 'Create my card'; }
+}
+function createCard() {
+  if (!state.plan) return;
+  const d = cardData();
+  cardState.made = true;
+  $('#sc-slot').innerHTML = cardHTML(d);
+  $('#sh-actions').hidden = false; $('#sh-make').textContent = 'Refresh card';
+  cardState.blobP = drawCardBlob(d).catch(() => null);
+}
+
+function rr(x, px, py, w, h, r) {
+  x.beginPath(); x.moveTo(px + r, py); x.arcTo(px + w, py, px + w, py + h, r); x.arcTo(px + w, py + h, px, py + h, r); x.arcTo(px, py + h, px, py, r); x.arcTo(px, py, px + w, py, r); x.closePath();
+}
+async function drawCardBlob(d) {
+  try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) { /* ignore */ }
+  const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const F = 'Inter, "Segoe UI", Roboto, system-ui, sans-serif';
+  const glow = (cx, cy, r, rgb, a) => { const g = x.createRadialGradient(cx, cy, 0, cx, cy, r); g.addColorStop(0, `rgba(${rgb},${a})`); g.addColorStop(1, `rgba(${rgb},0)`); x.fillStyle = g; x.fillRect(0, 0, W, H); };
+  x.fillStyle = '#080B14'; x.fillRect(0, 0, W, H);
+  glow(1000, 60, 700, '198,255,77', 0.2); glow(40, 1300, 820, '139,92,246', 0.4); glow(0, 560, 460, '56,217,255', 0.09);
+  rr(x, 48, 48, W - 96, H - 96, 48); x.strokeStyle = 'rgba(255,255,255,.14)'; x.lineWidth = 2; x.stroke();
+
+  /* logo */
+  const lx = 110, ly = 108, ls = 88;
+  rr(x, lx, ly, ls, ls, 26); x.fillStyle = '#C6FF4D'; x.fill();
+  x.save(); x.translate(lx, ly); x.scale(ls / 32, ls / 32);
+  x.strokeStyle = '#080B14'; x.lineCap = 'round';
+  x.lineWidth = 3; x.beginPath(); x.arc(16, 21.5, 8.5, Math.PI, 2 * Math.PI); x.stroke();
+  x.lineWidth = 2.6; x.beginPath(); x.moveTo(16, 21.5); x.lineTo(20.6, 14.5); x.stroke();
+  x.fillStyle = '#080B14'; x.beginPath(); x.arc(16, 21.5, 2.2, 0, 2 * Math.PI); x.fill();
+  x.restore();
+
+  x.textBaseline = 'alphabetic';
+  x.fillStyle = '#F5F7FA'; x.font = `800 40px ${F}`;
+  if ('letterSpacing' in x) x.letterSpacing = '6px';
+  x.fillText('CAMPUSMETER', lx + ls + 28, ly + 58);
+  if ('letterSpacing' in x) x.letterSpacing = '0px';
+
+  x.font = `800 88px ${F}`; x.fillStyle = '#F5F7FA';
+  x.fillText('My campus', 100, 330); x.fillText('money plan', 100, 424);
+  let y = 480;
+  if (d.campus) {
+    x.font = `500 34px ${F}`; x.fillStyle = '#9AA6C0';
+    let t = d.campus; while (x.measureText(t).width > W - 200 && t.length > 4) t = t.slice(0, -2);
+    x.fillText(t === d.campus ? t : t + '…', 100, y); y += 20;
+  }
+
+  /* big limit panel */
+  const py = Math.max(520, y + 30);
+  rr(x, 100, py, W - 200, 230, 36); x.fillStyle = 'rgba(198,255,77,.1)'; x.fill(); x.strokeStyle = 'rgba(198,255,77,.35)'; x.lineWidth = 2; x.stroke();
+  x.font = `500 32px ${F}`; x.fillStyle = '#9AA6C0'; x.fillText('Daily spending limit', 140, py + 62);
+  const val = nairaFloor(d.limit);
+  let fs = 140; x.font = `800 ${fs}px ${F}`;
+  while (x.measureText(val).width > W - 200 - 40 - 200 && fs > 60) { fs -= 6; x.font = `800 ${fs}px ${F}`; }
+  x.fillStyle = '#C6FF4D'; x.fillText(val, 140, py + 190);
+  const vw = x.measureText(val).width;
+  x.font = `500 36px ${F}`; x.fillStyle = '#9AA6C0'; x.fillText('per day', 140 + vw + 20, py + 190);
+
+  /* rows */
+  const lr = lastRow(d);
+  const rows = [['Available allowance', naira(d.allowance)], ['Budget period', plural(d.days, 'day')], ['Planned expenses', naira(d.projected)], lr];
+  let ry = py + 270;
+  rows.forEach(r => {
+    x.font = `500 36px ${F}`; x.fillStyle = '#9AA6C0'; x.textAlign = 'left'; x.fillText(r[0], 100, ry + 56);
+    x.font = `700 40px ${F}`; x.fillStyle = '#F5F7FA'; x.textAlign = 'right'; x.fillText(r[1], W - 100, ry + 56);
+    x.textAlign = 'left'; x.fillStyle = 'rgba(255,255,255,.1)'; x.fillRect(100, ry + 86, W - 200, 2);
+    ry += 88;
+  });
+  x.font = `italic 500 38px ${F}`; x.fillStyle = '#D6DEF0'; x.fillText('\u201C' + QUOTE + '\u201D', 100, Math.min(H - 100, ry + 70));
+  return new Promise(res => cv.toBlob(res, 'image/png'));
+}
+
+async function shareCard() {
+  if (!cardState.made) createCard();
+  const text = cardText(cardData());
+  try {
+    const blob = await cardState.blobP;
+    if (blob && typeof File === 'function') {
+      const file = new File([blob], 'campusmeter-plan.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text }); return; }
+    }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  if (navigator.share) {
+    try { await navigator.share({ title: 'My campus money plan', text }); }
+    catch (e) { if (!e || e.name !== 'AbortError') toast('Sharing failed. Try "Copy as text".'); }
+  } else toast('Sharing is not supported here. Use "Copy as text" or "Download image".');
+}
+async function copyText(t) {
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(t); return true; } } catch (e) { /* fall through */ }
+  const ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', '');
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0, t.length);
+  let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  ta.remove(); return ok;
+}
+async function downloadCard() {
+  if (!cardState.made) createCard();
+  const btn = $('#sh-download'), label = btn.querySelector('span');
+  label.textContent = 'Preparing image…'; btn.disabled = true;
+  try {
+    const blob = await cardState.blobP; if (!blob) throw new Error('no blob');
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = 'campusmeter-plan.png'; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast('Image saved to your downloads');
+  } catch (e) { toast("Couldn't make the image on this browser. Try \"Copy as text\"."); }
+  finally { label.textContent = 'Download image'; btn.disabled = false; }
+}
+
+/* =========================================================
+   Campus Money Tips
+   ========================================================= */
+const ARTICLES = [
+  { id: 'allowance', icon: 'i-wallet', color: '#C6FF4D', title: 'Managing a limited allowance', mins: 3, sum: 'Plan for a number of days, not a pile of money.',
+    body: [
+      'A limited allowance is easier to manage when you treat it as a plan for a set number of days, not one pile of money.',
+      { h: 'Start with the end date' }, 'Count the days until your next allowance, then divide what you have by that number. That is your rough daily ceiling before anything else is considered.',
+      { h: 'Cover once-off costs first' }, 'Data, printing, subscriptions and anything you must pay once in the period come out before daily spending. What is left is what you can spread over the days.',
+      { h: 'Think in weeks' }, 'Thirty days feels long, so early overspending is easy. Give yourself a weekly amount and check it once a week. If week one went over, week two has to be tighter, and now you know it.',
+      { h: 'Protect a small reserve' }, 'Set aside something from day one, even if it is small. Emergencies are what turn a tight month into a bad one.',
+      'Use the Budget Calculator to find your daily limit, then the Tracker to see whether real life agrees with it.'] },
+  { id: 'food', icon: 'i-food', color: '#38D9FF', title: 'Planning your food expenses', mins: 3, sum: 'Decide your daily food amount before you are hungry.',
+    body: [
+      'Food is often one of the larger lines in a student budget, though your own numbers will tell you for sure. Your results page shows your share.',
+      { h: 'Set a daily food amount first' }, 'Decide how much you can spend on food per day before you leave your room. Hunger makes bad budget decisions.',
+      { h: 'Plan the week, not just the meal' }, 'If you know roughly what you will eat on each day, you buy only what you need and waste less.',
+      { h: 'Compare before you buy' }, 'Prices can differ a lot between places close to each other. Check two or three spots near you and remember the cheapest reliable one.',
+      { h: 'Buy staples that keep' }, 'Items that do not spoil are often cheaper to buy when you have money than to buy in small amounts daily. If you cook with friends or roommates, sharing costs can help too.',
+      { h: 'Watch the small stuff' }, 'Snacks and drinks feel small one at a time. Track food for one week and look at the total.'] },
+  { id: 'unnecessary', icon: 'i-coins', color: '#8B5CF6', title: 'Reducing unnecessary spending', mins: 3, sum: 'Small habits add up faster than you think.',
+    body: [
+      'You do not need to stop enjoying life. You only need to notice which spending you would not miss.',
+      { h: 'Separate needs from wants' }, 'Needs keep you fed, safe and in school. Wants are nice to have. Be honest about which is which, and cut from the wants list first.',
+      { h: 'Do the multiplication' }, 'A small daily purchase feels harmless. Multiply it by the days in your budget to see its real size. For example, ₦200 a day over 30 days is ₦6,000.',
+      { h: 'Use a waiting rule' }, 'For anything not essential, wait a day before buying. If you still want it tomorrow and it fits your plan, buy it.',
+      { h: 'Know your triggers' }, 'Many people spend more when bored, stressed, or out with friends. Plan a free or cheaper alternative for those moments.',
+      { h: 'Change one thing at a time' }, 'Pick one habit to trim this week. Small changes you keep beat big changes you drop.'] },
+  { id: 'data', icon: 'i-wifi', color: '#FBBF24', title: 'Managing mobile data', mins: 3, sum: 'Find the apps that drain your data and tame them.',
+    body: [
+      'Data can disappear quietly. A few settings make it last longer without changing how you live.',
+      { h: 'Find the heavy apps' }, 'Your phone settings show which apps use the most data. The top two or three usually explain most of it.',
+      { h: 'Set a warning' }, 'Android lets you set a data warning or limit. The menu name varies by phone, so look under network or data usage in Settings.',
+      { h: 'Use Wi-Fi for big things' }, 'Download videos, updates and large files on Wi-Fi when you can, for example in a library or hostel with a connection.',
+      { h: 'Turn off auto-play and auto-download' }, 'Videos that play on their own and media that downloads automatically in chat apps can use data without you noticing.',
+      { h: 'Check what a bundle really gives you' }, 'Compare the price and how long each bundle lasts, then pick the one that matches how long you need it. Put your total data cost in the Calculator.'] },
+  { id: 'reserve', icon: 'i-shield', color: '#4ADE80', title: 'Building a small emergency reserve', mins: 3, sum: 'A little set aside early protects the whole month.',
+    body: [
+      'An emergency reserve is money you promise not to touch for normal spending. It does not need to be big to help.',
+      { h: 'Start small' }, 'Pick a percentage you can live with, even a small one, and set it aside the day your allowance arrives. Survival Mode lets you choose this percentage.',
+      { h: 'Keep it separate' }, 'Money you can see is money you spend. Keep your reserve apart from your daily cash, whether that is another wallet, an envelope, or a different account.',
+      { h: 'Decide what counts as an emergency' }, 'Write down your rule in advance. A sudden medical need or an urgent school cost counts. A craving or a sale usually does not.',
+      { h: 'Refill it' }, 'If you use your reserve, rebuild it first when the next allowance arrives. That way the next emergency is covered too.'] },
+  { id: 'mistakes', icon: 'i-alert', color: '#FF6B6B', title: 'Avoiding common student money mistakes', mins: 3, sum: 'Seven traps that catch many students.',
+    body: [
+      'Most money trouble comes from a few repeating habits. Spot them early and you can avoid them.',
+      { ul: [
+        'Spending the first week as if the allowance were the whole month.',
+        'Not tracking small purchases, which makes the total a surprise at the end.',
+        'Lending without a clear return date, or lending an amount you cannot afford to lose.',
+        'Forgetting subscriptions that keep charging after you stop using them.',
+        'Borrowing for non-essentials. If you ever must borrow, understand the full repayment amount and date before you agree.',
+        'Having no reserve, so every surprise becomes a crisis.',
+        'Copying friends\u2019 spending when their allowance and costs are different from yours.'] },
+      'You do not need to fix everything at once. Pick one mistake from this list and deal with it this month.'] },
+  { id: 'tracking', icon: 'i-chart', color: '#F472B6', title: 'Tracking daily expenses without stress', mins: 3, sum: 'Two minutes a day beats a perfect system you abandon.',
+    body: [
+      'Tracking works when it is quick. The goal is awareness, not perfection.',
+      { h: 'Record it straight away or each night' }, 'Add expenses when you spend, or do one quick round before bed. Waiting until the weekend means forgetting things.',
+      { h: 'Keep categories simple' }, 'The Tracker has seven categories. If you are unsure, choose the closest one and move on.',
+      { h: 'Do a five-minute weekly review' }, 'Look at your biggest category and your biggest surprise. Ask what you would change next week.',
+      { h: 'Compare with your daily limit' }, 'If you went over today, make tomorrow a little lighter instead of giving up. One bad day does not ruin a plan.',
+      'Open the Tracker tab to start, and check the comparison with your plan as you go.'] }
+];
+
+function renderTips() {
+  $('#tips-grid').innerHTML = ARTICLES.map(a => `<button class="tip" type="button" data-article="${a.id}" style="--c:${a.color}"><span class="ico">${ic(a.icon)}</span><h3>${esc(a.title)}</h3><p>${esc(a.sum)}</p><span class="read">Read · ${a.mins} min</span></button>`).join('');
+}
+function showArticle(id) {
+  const a = ARTICLES.find(x => x.id === id); if (!a) return;
+  $('#da-title').textContent = a.title; $('#da-meta').textContent = a.mins + ' min read';
+  $('#da-body').innerHTML = a.body.map(b => typeof b === 'string' ? `<p>${esc(b)}</p>` : b.h ? `<h4>${esc(b.h)}</h4>` : `<ul>${b.ul.map(li => `<li>${esc(li)}</li>`).join('')}</ul>`).join('') +
+    '<p class="art-meta">General guidance for learning purposes, not financial advice.</p>';
+  const d = $('#dlg-article'); openDialog(d); $('#da-body').scrollTop = 0;
+}
+
+/* =========================================================
+   Info dialogs (privacy + contact)
+   ========================================================= */
+function showInfo(which) {
+  const d = $('#dlg-info'), body = $('#di-body');
+  if (which === 'privacy') {
+    $('#di-title').textContent = 'Privacy';
+    body.innerHTML = `
+      <p>In this first version, CampusMeter keeps your budget information <b>on your device</b>, in your browser's local storage.</p>
+      <h4>What is saved on your device</h4>
+      <ul><li>Your budget numbers, and the optional campus name, housing choice and allowance date.</li><li>Your Survival Mode plan and daily log.</li><li>The expenses you record.</li></ul>
+      <h4>What is not happening</h4>
+      <ul><li>There are no accounts and no CampusMeter server receiving your budget.</li><li>Nothing is sent when you calculate, track or save.</li><li>Cards are only shared, copied or downloaded when you tap those buttons. If you share one, it goes to the app you choose.</li></ul>
+      <h4>Things to know</h4>
+      <ul><li>Your data is not backed up and is not encrypted by CampusMeter. Anyone who can open this browser on your phone could see it.</li><li>Clearing your browser data removes it.</li><li>The page loads the Inter font from Google Fonts, so Google receives a normal web request when it does.</li></ul>
+      <button class="btn btn-danger" type="button" data-action="wipe">Delete all my CampusMeter data</button>`;
+  } else {
+    $('#di-title').textContent = 'Contact';
+    body.innerHTML = `
+      <p>Questions, ideas, or something not working? Reach out here.</p>
+      <ul>
+        <li>Instagram: <a href="https://instagram.com/${encodeURIComponent(CONTACT.instagram)}" target="_blank" rel="noopener">@${esc(CONTACT.instagram)}</a></li>
+        <li>X: <a href="https://x.com/${encodeURIComponent(CONTACT.x)}" target="_blank" rel="noopener">@${esc(CONTACT.x)}</a></li>
+        <li>GitHub: <a href="https://github.com/${encodeURIComponent(CONTACT.github)}" target="_blank" rel="noopener">${esc(CONTACT.github)}</a></li>
+      </ul>
+      <p class="art-meta">Please don't send passwords or bank details.</p>`;
+  }
+  openDialog(d); body.scrollTop = 0;
+}
+
+/* =========================================================
+   Actions (delegated clicks)
+   ========================================================= */
+async function handleAction(action, id) {
+  if (action === 'exp-edit') {
+    const ex = state.expenses.find(x => x.id === id); if (!ex) return;
+    setExpMode(ex); scrollToEl($('#exp-form')); $('#e-amount').focus({ preventScroll: true });
+  } else if (action === 'exp-del') {
+    const ex = state.expenses.find(x => x.id === id); if (!ex) return;
+    const ok = await confirmBox('Delete this expense?', `${naira(ex.amount)} for ${ex.desc || ex.category} on ${fmtDate(ex.date)} will be removed permanently.`, 'Delete');
+    if (!ok) return;
+    state.expenses = state.expenses.filter(x => x.id !== id);
+    if ($('#e-id').value === id) setExpMode(null);
+    save(); renderTracker(); toast('Expense deleted');
+  } else if (action === 'filter') {
+    filterCat = id; renderExpList();
+  } else if (action === 'exp-clear') {
+    const ok = await confirmBox('Start a new period?', `This permanently removes all ${plural(state.expenses.length, 'recorded expense')}. Your budget plan stays.`, 'Clear expenses');
+    if (!ok) return;
+    state.expenses = []; filterCat = 'all'; setExpMode(null); save(); renderTracker(); toast('Expenses cleared');
+  } else if (action === 'surv-del') {
+    const x = state.survival.log.find(l => l.id === id); if (!x) return;
+    const ok = await confirmBox('Delete this entry?', `${naira(x.amount)} on day ${x.day} will be removed permanently.`, 'Delete');
+    if (!ok) return;
+    state.survival.log = state.survival.log.filter(l => l.id !== id); save(); renderSurvival();
+  } else if (action === 'surv-reset') {
+    const ok = await confirmBox('Start over?', 'This removes your Survival Mode plan and everything you logged in it.', 'Start over');
+    if (!ok) return;
+    state.survival = defaults().survival; setReserveUI(15);
+    $('#s-left').value = ''; $('#s-days').value = ''; clearErrs($('#surv-form'));
+    save(); renderSurvival();
+  } else if (action === 'wipe') {
+    const ok = await confirmBox('Delete all your data?', 'This removes your budget, Survival Mode plan and every expense from this device. It cannot be undone.', 'Delete everything');
+    if (!ok) return;
+    try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+    state = defaults(); cardState.made = false; filterCat = 'all';
+    resetCalcForm(); setExpMode(null); $('#s-left').value = ''; $('#s-days').value = ''; setReserveUI(15);
+    renderAll(); closeDialog($('#dlg-info')); toast('All data deleted');
+  } else if (action === 'install' && deferredPrompt) {
+    deferredPrompt.prompt(); deferredPrompt = null; $$('[data-install]').forEach(b => { b.hidden = true; });
+  }
+}
+let deferredPrompt = null;
+
+/* =========================================================
+   Forms: draft saving, reset, examples
+   ========================================================= */
+const HINT_NEXT = "We'll check if your money lasts until this date.";
+function resetCalcForm() {
+  $('#calc-form').reset(); state.draft = {}; clearErrs($('#calc-form')); $('#calc-error').hidden = true; $('#hint-c-next').textContent = HINT_NEXT;
+}
+function restoreDraft() {
+  const d = state.draft || {};
+  ['c-allowance', 'c-days', 'c-feed', 'c-transport', 'c-otherDaily', 'c-data', 'c-subs', 'c-otherPeriodic', 'c-campus', 'c-next'].forEach(id => { if (typeof d[id] === 'string') $('#' + id).value = d[id]; });
+  if (d.housing) { const r = $$('input[name="housing"]').find(i => i.value === d.housing); if (r) r.checked = true; }
+  updateNextHint(false);
+  const s = state.survival;
+  if (s.left > 0) $('#s-left').value = nf.format(s.left);
+  if (s.days > 0) $('#s-days').value = s.days;
+  setReserveUI(Number.isFinite(+s.reserve) ? +s.reserve : 15);
+}
+function updateNextHint(autofill) {
+  const v = $('#c-next').value, h = $('#hint-c-next');
+  if (!v) { h.textContent = HINT_NEXT; return; }
+  const n = daysBetween(todayISO(), v);
+  if (n == null) { h.textContent = HINT_NEXT; return; }
+  if (n < 0) { h.textContent = 'That date has already passed.'; return; }
+  h.textContent = n === 0 ? 'That is today.' : `That is ${plural(n, 'day')} from today. Set "Days" to ${n} if the money must last until then.`;
+  if (autofill && n >= 1 && !$('#c-days').value.trim()) { $('#c-days').value = String(n); state.draft['c-days'] = String(n); saveSoon(); }
+}
+function fillExample(map) { Object.keys(map).forEach(id => { $('#' + id).value = map[id]; state.draft[id] = map[id]; }); }
+
+function renderAll() { renderResults(false); renderSurvival(); renderTracker(); renderShare(); }
+
+/* =========================================================
+   Init
+   ========================================================= */
+function init() {
+  loadState();
+  $('#year').textContent = new Date().getFullYear();
+  $('#e-cat').innerHTML = CATS.map(c => `<option value="${esc(c.id)}">${esc(c.id)}</option>`).join('');
+  $('#e-date').value = todayISO();
+  renderTips();
+  restoreDraft();
+
+  /* calculator */
+  $('#calc-form').addEventListener('submit', onCalcSubmit);
+  $('#calc-form').addEventListener('input', e => {
+    const t = e.target;
+    if (t.name === 'housing') state.draft.housing = t.value; else if (t.id) state.draft[t.id] = t.value;
+    saveSoon();
+  });
+  $('#c-next').addEventListener('change', () => updateNextHint(true));
+  $('#calc-example').addEventListener('click', () => { fillExample(EXAMPLE); clearErrs($('#calc-form')); $('#calc-error').hidden = true; saveSoon(); toast('Example numbers added. Tap Calculate My Budget.'); });
+  $('#calc-reset').addEventListener('click', () => { resetCalcForm(); saveSoon(); });
+
+  /* survival */
+  $('#surv-form').addEventListener('submit', onSurvSubmit);
+  $('#surv-example').addEventListener('click', () => { $('#s-left').value = '6,000'; $('#s-days').value = '12'; clearErrs($('#surv-form')); toast('Example added. Tap Make my survival plan.'); });
+  $('#s-reserve').addEventListener('input', e => {
+    const v = +e.target.value; state.survival.reserve = v; setReserveUI(v); saveSoon();
+    if (state.survival.left > 0) renderSurvival();
+  });
+  document.addEventListener('submit', e => { if (e.target.id === 'surv-log-form') onSurvLog(e); });
+
+  /* tracker */
+  $('#exp-form').addEventListener('submit', onExpSubmit);
+  $('#e-cancel').addEventListener('click', () => setExpMode(null));
+
+  /* share */
+  $('#sh-make').addEventListener('click', () => { createCard(); if (window.innerWidth < 900) scrollToEl($('#sc-slot')); });
+  $('#sh-campus').addEventListener('change', () => { if (cardState.made) createCard(); });
+  $('#sh-share').addEventListener('click', shareCard);
+  $('#sh-copy').addEventListener('click', async () => { if (!cardState.made) createCard(); toast((await copyText(cardText(cardData()))) ? 'Copied to your clipboard' : "Couldn't copy. Select the text on the card instead."); });
+  $('#sh-download').addEventListener('click', downloadCard);
+
+  /* global input niceties */
+  document.addEventListener('focusout', e => { if (e.target.matches && e.target.matches('.money input')) fmtInput(e.target); });
+  document.addEventListener('input', e => { const t = e.target; if (t.getAttribute && t.getAttribute('aria-invalid') === 'true' && t.id) setErr(t.id, ''); });
+  window.addEventListener('pagehide', save);
+
+  renderAll();
+
+  /* install + offline */
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; $$('[data-install]').forEach(b => { b.hidden = false; b.dataset.action = 'install'; }); });
+  window.addEventListener('appinstalled', () => { deferredPrompt = null; $$('[data-install]').forEach(b => { b.hidden = true; }); toast('CampusMeter installed'); });
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => { /* offline support is optional */ });
+
+  /* hero mockup: one orchestrated moment */
+  requestAnimationFrame(() => {
+    $('#mock').classList.add('in');
+    $('#mock-ring').style.strokeDashoffset = (276.46 * 0.25).toFixed(2);
+    countTo($('#mock-left'), 7500, naira);
+  });
+
+  /* deep links */
+  const h = location.hash.slice(1);
+  if (h && (TABS.includes(h) || SECTIONS.includes(h))) setTimeout(() => go(h), 120);
+  else if (h === 'tool') setTimeout(() => scrollToEl($('#tool')), 120);
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+</body>
+</html>
